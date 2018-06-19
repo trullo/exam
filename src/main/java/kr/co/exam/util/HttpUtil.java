@@ -2,6 +2,7 @@ package kr.co.exam.util;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,7 @@ public class HttpUtil {
     	return result;
     }
 	
-	public static ModelAndView makeJsonView(HashMap<String, Object> map) {
+	public static ModelAndView makeJsonView(Map<String, Object> map) {
 		ModelAndView mav = new ModelAndView();
 		
 		JSONObject j = new JSONObject();
@@ -50,8 +51,7 @@ public class HttpUtil {
 		return mav;
 	}
 
-	public static void makeJsonWriter(HttpServletResponse res, HashMap<String, Object> map) {
-		
+	public static void makeJsonWriter(HttpServletResponse res, Map<String, Object> map) {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=utf-8");
 		

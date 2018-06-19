@@ -1,6 +1,7 @@
 package kr.co.exam.Dao;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -12,8 +13,7 @@ public class Dao implements DaoInterface {
 	SqlSession session;
 	
 	@Override
-	public Object call(HashMap<String, Object> param) {
-		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+	public Object call(Map<String, Object> param) {
 		String sql = param.get("sql").toString();
 		String sqltype = param.get("sqlType").toString();
 		
@@ -28,7 +28,8 @@ public class Dao implements DaoInterface {
 		}
 		else if("selectList".equals(sql)) {
 			return session.selectList(sqltype,param);
-		}else {			
+		}		
+		else {			
 			System.out.println("sql조건절 추가하자 sql : " + sql);
 		}
 		
