@@ -23,11 +23,13 @@ public class HttpUtil {
 	
 	public static HashMap<String, Object> getParamMap(HttpServletRequest req){
     	HashMap<String, Object> result = new HashMap<String, Object>();
-    	
+    	HashMap<String, Object> result2 = new HashMap<String, Object>();
     	Enumeration<?> enums = req.getParameterNames();
+    	if(req.getParameter("jsonForm")!=null) {
+    		
+    	}
     	while(enums.hasMoreElements()) {
     		String paramName = enums.nextElement().toString();
-    		
     		if("".equals(req.getParameter(paramName))) {
     			result = null;
     			break;

@@ -15,23 +15,64 @@
 <script>
 $(function(){
 	var localhost = "http://localhost:8080/";
-	var insert = "exam/user/insert";
-	var checkId = "exam/user/checkId";
+	var insert = "http://localhost:8080/exam/user/insert";
+	var checkId = "http://localhost:8080/exam/user/checkId";
 	$("#div_main").css("display","block");
 	$("#div4_regser #form").on("submit",function(event){
 	      event.preventDefault();	      
 	});
-	$("#div4_regser #id").blur(function(){
-		var queryString = $("#form").serialize() ;
-
-		$.ajax({method:"post",url:"http://localhost:8080/exam/user/checkId",data:{id:$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);
-			alert(d.result);	
+	
+	$("#div4_regser #id").focusout(function(){
+		if(idnullcheck()){
+			return false;
+		}
+		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
+			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
+			alert(d.result);
 		});
 	});
-	$("#div4_regser form").on("submit",function(){
+	
+	$("#div4_regser form").on("submit",function(event){
+		event.preventDefault();
+		if(idnullcheck()){
+			return false;
+		}		
+		var queryString = $("#form").serialize();
+		console.log(queryString);
+		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
+			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
+			if(d.status==0){
+				alert(d.result);
+			}
+		});
+		if(!pwcheck()){
+			alert("비밀번호가 다릅니다, 확인해주세요");
+			return false;
+		};
+		
+		$.ajax({method:"post",url:insert,data:queryString}).done(function(data){
+			var d = JSON.parse(data);
+			console.log(d);
+		});
 		
 	});	
+	function pwcheck(){
+		if($("#pw").val() == $("#pw2").val()){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	function idnullcheck(){
+		if($("#id").val() == ""){
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 })
           
 </script>
@@ -104,15 +145,15 @@ $(function(){
 		        <ol>
 		          <li>
 		            <label for="userid">아이디</label>
-		            <input id="id" name="id" type="text" autofocus>
+		            <input id="id" name="id" type="text" autofocus required>
 		          </li>
 		          <li>
 		            <label for="pwd1">비밀번호</label>
-		            <input id="pw" name="pw" type="password">
+		            <input id="pw" name="pw" type="password" required>
 		          </li>
 		          <li>
 		            <label pwd="pwd2">비밀번호 확인</label>
-		            <input id="pw2" name="pw2" type="password" >
+		            <input id="pw2" name="pw2" type="password" required>
 		          </li>  
 		          <li>
 		            <label pwd="level">회원 등급</label>
@@ -124,15 +165,15 @@ $(function(){
 		        <ol>
 		          <li>
 		            <label pwd="fullname">이름</label>
-		            <input id="name" name="name" type="text" placeholder="5자미만 공백없이">
+		            <input id="name" name="name" type="text" placeholder="5자미만 공백없이" required>
 		          </li>
 		          <li>
 		            <label pwd="email">메일 주소</label>
-		            <input id="mail" name="email" type="mail" placeholder="abcd@domain.com" autocomplete="off">
+		            <input id="mail" name="mail" type="mail" placeholder="abcd@domain.com" required autocomplete="off">
 		          </li>
 		          <li>
 		            <label pwd="tel">연락처</label>
-		            <input id="phone" name="phone" type="tel" autocomplete="off">
+		            <input id="phone" name="phone" type="tel" autocomplete="off" required>
 		          </li>  
 		        </ol>
 		        </fieldset>

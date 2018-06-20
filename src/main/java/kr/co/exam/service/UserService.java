@@ -25,10 +25,15 @@ public class UserService implements UserServiceInterface {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		if("insert".equals(map.get("sql"))) {
-			if(!checkId(map)) {
+			if(checkId(map)) {
 				map.put("result", Constant.error2);
 				return HttpUtil.makeJsonView(map);
 			}
+			else if(!map.get("pw").toString().equals(map.get("pw2").toString())) {
+				map.put("result", Constant.error3);
+				return HttpUtil.makeJsonView(map);				
+			}
+			
 			map.put("sqlType", "user.insert");
 		}
 		else if("selectOne".equals(map.get("sql").toString())) {
@@ -74,6 +79,8 @@ public class UserService implements UserServiceInterface {
 		}
 		else {
 			System.out.println("null");
+			System.out.println("map파라미터  : "+map);
+			System.out.println("확인용 값하나 뽑아보는거 " + map.get("name"));
 			map.put("sql", sql);
 			return false;
 		}
