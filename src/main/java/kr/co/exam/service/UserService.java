@@ -3,6 +3,8 @@ package kr.co.exam.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class UserService implements UserServiceInterface {
 	@Autowired
 	DaoInterface di;
 	@Override
-	public ModelAndView user(Map<String, Object> map) {
+	public ModelAndView user(Map<String, Object> map,HttpSession session) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		if("insert".equals(map.get("sql"))) {
@@ -38,6 +40,18 @@ public class UserService implements UserServiceInterface {
 		}
 		else if("selectOne".equals(map.get("sql").toString())) {
 			map.put("sqlType", "user.selectOne");
+			if(di.call(map) != null) {
+				resultMap.put("result", "아이디와 비밀번호를 확인해주세요!!");
+				resultMap.put("status", 1);
+				session.setAttribute("member", di.call(map));
+			}
+			else {
+				resultMap.put("result", "아이디와 비밀번호를 확인해주세요!!");
+				resultMap.put("status", 0);						
+			}
+			
+			
+			return HttpUtil.makeJsonView(resultMap);
 		}
 		else if("update".equals(map.get("sql").toString())) {
 			map.put("sqlType", "user.update");

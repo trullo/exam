@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,10 +31,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/{menu}")
-	public ModelAndView user(@PathVariable("menu") String menu, HttpServletRequest req) {
+	public ModelAndView user(@PathVariable("menu") String menu, HttpServletRequest req, HttpSession session) {
 		logger.info("Controller/user/"+menu);		
 		map = HttpUtil.getParamMap(req);
 		map.put("sql", menu);
-		return usi.user(map);
+		return usi.user(map,session);
 	}
 }

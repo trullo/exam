@@ -4,6 +4,7 @@ $(function(){
 	var movie = "exam/move/movie";
 	var movie2 = "exam/move/movie2";
 	var reg = "exam/move/reg"
+	var login = "http://localhost:8080/exam/user/selectOne";
     $("#navigation-menu").hide();
     
     $("#menu1").click(function() {
@@ -49,10 +50,30 @@ $(function(){
         return false;
     });
     
+    //작은로그인창 --
     $("#backbutton").on("click",function(){
         $("#navigation-login").slideToggle(500);
-        $("#navigation-login form #nid").focusin();       
+        $("#navigation-login form #nid").focusin();   
     });
+    
+    $("#smallloginbutton").on("click",function(){
+    	if($("#nid").val() == "" || $("#npw").val() == ""){
+    		alert("아이디와 비밀번호를 입력해주세요");
+    		return false;
+    	}
+    	$.ajax({method:"post",url:login,data:{id:$("#nid").val(),pw:$("#npw").val()}})
+    	.done(function(data){
+    		var d = JSON.parse(data);
+    		console.log(d);
+    		if(d.status==1){
+    			alert("로그인성공");
+    		} 
+    		else {
+    			alert("로그인실패");
+    		}
+    	});
+    });
+    //---------
     
     $(".submit_reg").click(function(){
         move_index("#div4_regser");
