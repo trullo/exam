@@ -1,0 +1,410 @@
+div{display: inline-block;}
+h1 {color: #13217b;}
+
+#div1{
+    background-color: ;
+    width: 70vw;
+    height: 70px;
+    text-align: center;
+    position: fixed;
+    left: 15vw
+    
+}
+#div1 img {
+    width: 180px;
+}
+#div1_1{
+    background-color: ;
+    width: 70vw;
+    height: 50px;
+    position: fixed;
+    margin-top: 70px;
+    left: 15vw;
+}
+#div1_1 h3 {
+    width: 80vw;
+    text-align: center;
+    margin-top: 0;
+    margin-right: 0;
+    font-size: 1.5em;
+}
+#div2{
+    background-color:;
+    width: 70vw;
+    height: 80px;
+    position: fixed;
+    margin-top: 130px;    
+    left: 15vw;
+}
+#div2 #img1, #img2 {
+    margin-top: 3px;
+}
+
+#div2 #menu1 {
+}
+#div2 .div2_wrap {
+    display: none;
+}
+#div2 .div2_wrap a {
+    display: none;
+}
+#div2 .div2_wrap {
+    margin-left: calc(704px - 540px);
+}
+#div2 .div2_wrap img {
+    width: 80px;
+}
+#div3{
+    display: none;
+}
+
+#div4{
+    background-color: #F5F5F5;
+    width: 100%;
+    height: auto;
+    display: inline-block;
+    margin-top: 130px;        
+    overflow-y: hidden;
+    overflow-x: hidden;
+    margin-bottom: 5px;
+}
+#div5{
+    background-color: ;
+    width: 100%;
+    height: 60px;
+}
+
+.menu_button {
+    display: none;
+}
+
+#div4 #view_ul li {
+    display: inline-block;
+    float: left;
+    width: calc((100% / 2) - 25px);
+    padding: 10px 10px;
+}
+#div4 #view_ul li img{
+    width: 35vw;
+    height: 60vh;
+    background-size: cover;
+    
+}
+.atag {
+    display: inline-block;
+    float: right;
+    padding: 5px;
+    margin-top: 7px;
+    margin-right: 5px;
+    margin-left: 20px;
+}
+#reg:hover, #login:hover {
+    background-color: aliceblue;
+    width: 50px;
+    height: 50px;
+}
+.atag:active {
+    background-color: black;
+} 
+#atag2 {
+    display: inline-block;
+    float: left;
+}
+#menu1:hover {
+    background-color: aliceblue;
+}
+#img1 {
+    width: 50px;
+    height: 50px;
+}
+
+#img2 {
+    width: 50px;
+    height: 50px;    
+}
+#menu1 {
+    width: 50px;
+    height: 50px;
+    margin-top: 16px;
+    margin-left: 16px;
+
+}
+
+#navigation-menu {
+    display: inline-block;
+    position: fixed;
+    top: 116px;
+}
+
+body {
+    width: 80vw;
+}
+
+#navigation-login {
+    position: fixed;
+    width: 35%;
+    right: 10%;
+    top: 210px;
+}
+/* 게시판 테블릿용 수정 */
+table #header th {font-size: 0.9em;}
+#dataTable tr td {font-size: 0.9em;}
+
+#div4 #div4_board .div4_board_table {
+    width: 70vw;
+}
+
+#div4 #div4_board #dataTable {
+    width: 70vw; 
+    border-bottom: 1px solid #CCC; 
+    border-right: 1px solid #CCC;
+}
+
+#div4 #div4_board .num {
+    width: 10%;
+}
+
+#div4 #div4_board .title {
+    width: 40%;
+}
+
+#div4 #div4_board .name {
+    width: 15%;
+}
+
+#div4 #div4_board .date {
+    width: 20%;
+}
+
+#div4 #div4_board .count {
+    width: 15%;
+}
+
+#div4 #div4_board .div4_board_table2 .num {
+    background-color:; 
+    text-align:center;
+}
+#div4 #div4_board .div4_board_table2 .title {
+    text-align:left;
+}
+
+#div4 #div4_board .div4_board_table2 .name {
+    text-align:center;
+}
+
+#div4 #div4_board .div4_board_table2 .date {
+    text-align:center;
+}
+#div4 #div4_board .div4_board_table2 .count {
+    text-align:center;
+}
+/*게시판 끝*/
+
+/* 쟈비스?? q n a 게시판 테블릿 모드 가동해*/
+
+#div4_qa_table #header2 th {font-size: 0.9em;}
+#data2Table tr td {font-size: 0.9em;}
+
+#div4 #div4_qa .div4_qa_table {
+    width: 70vw;
+}
+
+#div4 #div4_qa #data2Table {
+    width: 70vw; 
+    border-bottom: 1px solid #CCC; 
+    border-right: 1px solid #CCC;
+}
+
+#div4 #div4_qa .num {
+    width: 10%;
+}
+
+#div4 #div4_qa .title {
+    width: 40%;
+}
+
+#div4 #div4_qa .name {
+    width: 15%;
+}
+
+#div4 #div4_qa .date {
+    width: 20%;
+}
+
+#div4 #div4_qa .count {
+    width: 15%;
+}
+
+#div4 #div4_qa .div4_qa_table2 .num {
+    background-color:; 
+    text-align:center;
+}
+#div4 #div4_qa .div4_qa_table2 .title {
+    text-align:left;
+}
+
+#div4 #div4_qa .div4_qa_table2 .name {
+    text-align:center;
+}
+
+#div4 #div4_qa .div4_qa_table2 .date {
+    text-align:center;
+}
+#div4 #div4_qa .div4_qa_table2 .count {
+    text-align:center;
+}
+.div4_qa_table #header2 {
+    background-color: #13217b;
+    color: white;
+}
+/*qna 게시판 끝*/
+
+
+
+
+/*자유게시판 시작*/
+
+#div4_free_table #header3 th {font-size: 0.9em;}
+#data3Table tr td {font-size: 0.9em;}
+
+#div4 #div4_free .div4_free_table {
+    width: 70vw;
+}
+
+#div4 #div4_free #data3Table {
+    width: 70vw; 
+    border-bottom: 1px solid #CCC; 
+    border-right: 1px solid #CCC;
+}
+
+#div4 #div4_free .num {
+    width: 10%;
+}
+
+#div4 #div4_free .title {
+    width: 40%;
+}
+
+#div4 #div4_free .name {
+    width: 15%;
+}
+
+#div4 #div4_free .date {
+    width: 20%;
+}
+
+#div4 #div4_free .count {
+    width: 15%;
+}
+
+#div4 #div4_free .div4_free_table2 .num {
+    background-color:; 
+    text-align:center;
+}
+#div4 #div4_free .div4_free_table2 .title {
+    text-align:left;
+}
+
+#div4 #div4_free .div4_free_table2 .name {
+    text-align:center;
+}
+
+#div4 #div4_free .div4_free_table2 .date {
+    text-align:center;
+}
+#div4 #div4_free .div4_free_table2 .count {
+    text-align:center;
+}
+.div4_free_table #header3 {
+    background-color: #13217b;
+    color: white;
+}
+/*자유게시판 끝*/
+#cssmenu {
+    display: none;
+}
+.movieview .title {
+    font-size: 10em;
+}
+
+
+#div4_map {
+        width:768px;
+        height: 768px;
+}
+
+
+
+
+
+
+/**************************글쓰기 테블릿 모드 가동******************************/
+
+#write_page {
+    width: 100%;
+    height: auto;
+
+}
+#write_page td {
+    margin: 5px 0;
+}
+
+#write_table {
+    border: 1px solid gray;
+    width: 500px;
+    height: 400px;
+    margin-left: calc((100% - 500px) / 2);
+    background-color: silver;
+    color: #13217b;
+    font-weight: bold;
+}
+#write_table #write_tbody {
+    
+}
+
+#write_page h1 {
+    text-align: center;
+    color: #13217b;
+    font-weight: bold;
+}
+
+
+#write_tbody th {
+    font-size: 1em;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+}
+
+#write_page .writeinputbox {
+    width: 350px;
+    height: 25px;
+}
+#write_page .writeinputbox2 {
+    width: 350px;
+    height: 150px;
+}
+#writebtntd {
+    text-align: center;
+}
+
+.writebtn {
+    width: 70px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: #13217b;
+    color: white;
+    border-style: none;
+}
+
+/*포스터 상세정보*/
+#poster_body {
+    top: 10vh;
+    left: 10%;
+    width: 80vw;
+    height: 700px;
+}
+
+#div4 .div4_view .moveview{
+    left: 10%;
+}

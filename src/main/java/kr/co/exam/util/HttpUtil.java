@@ -47,7 +47,7 @@ public class HttpUtil {
 		
 		mav.addObject("json", j);
 		mav.setViewName("json");
-		
+		System.out.println(j);
 		return mav;
 	}
 

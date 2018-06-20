@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,12 +21,19 @@ public class UserController {
 	@Autowired
 	UserServiceInterface usi;
 	Map<String, Object> map;
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping("/move/{menu}")
+	public String move(@PathVariable("menu") String menu) {
+		logger.info("Controller/move/"+menu);		
+		return "jsp/".concat(menu);
+	}
 	
 	@RequestMapping("/user/{menu}")
 	public ModelAndView user(@PathVariable("menu") String menu, HttpServletRequest req) {
+		logger.info("Controller/user/"+menu);		
 		map = HttpUtil.getParamMap(req);
 		map.put("sql", menu);
 		return usi.user(map);
 	}
-	
 }

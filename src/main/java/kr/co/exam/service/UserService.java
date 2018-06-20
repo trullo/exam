@@ -22,14 +22,7 @@ public class UserService implements UserServiceInterface {
 	DaoInterface di;
 	@Override
 	public ModelAndView user(Map<String, Object> map) {
-		switch(map.get("sql").toString()) {
-			case "insert" :
-				if(!checkId(map)) {
-					map.put("status", Constant.error2);
-					return HttpUtil.makeJsonView(map);
-				}
-				map.put("sqlType", "user.insert");
-		}
+		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		if("insert".equals(map.get("sql"))) {
 			if(!checkId(map)) {
@@ -48,27 +41,39 @@ public class UserService implements UserServiceInterface {
 			map.put("sqlType", "user.delete");
 		}
 		else if("checkId".equals(map.get("sql").toString())) {
-			map.put("sql", "selectOne");
-			map.put("sqlType", "user.checkId");
+			System.out.println("id체크");
+			if(!checkId(map)) {
+				resultMap.put("result", "사용가능한 아이디입니다.");
+				resultMap.put("status", 1);
+			}
+			else {
+				resultMap.put("result", "이미 사용중인 아이디 입니다.");
+				resultMap.put("status", 0);				
+			}
+			return HttpUtil.makeJsonView(resultMap);
 		}else {	
 			logger.info("서비스 sql쪽에서 문제있음");
 		}
-		map.put("result", di.call(map));		
-		map.put("status", 0);
+		resultMap.put("result", di.call(map));		
+		resultMap.put("status", 0);
 				
-		return HttpUtil.makeJsonView(map);
+		return HttpUtil.makeJsonView(resultMap);
 	}
 
 	@Override
 	public boolean checkId(Map<String, Object> map) {
+		System.out.println(map);
 		String sql = map.get("sql").toString();
 		map.put("sql", "selectOne");
-		map.put("sqlType", "user.checkId");		
+		map.put("sqlType", "user.checkId");	
+		System.out.println(di.call(map));
 		if(di.call(map) != null) {
+			System.out.println("not null");
 			map.put("sql", sql);
 			return true;
 		}
 		else {
+			System.out.println("null");
 			map.put("sql", sql);
 			return false;
 		}
