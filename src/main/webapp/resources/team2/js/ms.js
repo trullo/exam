@@ -3,6 +3,7 @@ $(function(){
 	var index = "exam/move/index";
 	var movie = "exam/move/movie";
 	var movie2 = "exam/move/movie2";
+	var board = "exam/board/selectList?boardMenu=1&page=0";
 	var reg = "exam/move/reg"
 	var login = "http://localhost:8080/exam/user/selectOne";
     $("#navigation-menu").hide();
@@ -23,7 +24,7 @@ $(function(){
     });
     $("#menu_btn3").click(function(event){
        event.preventDefault();
-        move_index("#div4_board");
+       location.href=`${localhost}${board}`;
     });
     $("#menu_btn4").click(function(event){
        event.preventDefault();
@@ -65,11 +66,15 @@ $(function(){
     	.done(function(data){
     		var d = JSON.parse(data);
     		console.log(d);
+    		var html="";
     		if(d.status==1){
-    			alert("로그인성공");
+    			html="<h1>로그인 성공</h1>";
+    			html="<h3>${member}님 환영합니다</h3>";
+    			html="<h3>좋은하루되세요</h3>";
+        		$(body).append(html);    			
     		} 
     		else {
-    			alert("로그인실패");
+    			alert("                로그인실패\n아이디나 비밀번호를 확인해주세요")
     		}
     	});
     });
@@ -97,7 +102,7 @@ $(function(){
         switch(o){
             case 0 : location.href=`${localhost}${movie}`; break;
             case 1 : location.href=`${localhost}${movie2}`; break; 
-            case 2 : move_index("#div4_board"); break;
+            case 2 : location.href=`${localhost}${board}`; break;
             case 3 : move_index("#div4_free"); break;
             case 4 : move_index("#div4_map"); break;
             case 5 :move_index("#div4_qa"); 

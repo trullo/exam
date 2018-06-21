@@ -41,7 +41,7 @@ public class UserService implements UserServiceInterface {
 		else if("selectOne".equals(map.get("sql").toString())) {
 			map.put("sqlType", "user.selectOne");
 			if(di.call(map) != null) {
-				resultMap.put("result", "아이디와 비밀번호를 확인해주세요!!");
+				resultMap.put("result", "로그인성공");
 				resultMap.put("status", 1);
 				session.setAttribute("member", di.call(map));
 			}

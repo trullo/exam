@@ -2,16 +2,16 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="user">
-	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
-		select * from user where id = #{id} and pw = #{pw} and userdelYn = 'N' limit 1;
+<mapper namespace="boards">
+	<select id="selectList" parameterType="HashMap" resultType="HashMap">
+		select * from boards where boardMenu = ${boardMenu} and boarddelYn = 'N' order by boardNo desc limit ${number}, 10;
 	</select>
 	<select id="checkId" parameterType="HashMap" resultType="HashMap">
 		select * from user where id = #{id} limit 1;
 	</select>	
 	
 	<insert id="insert">
-		insert into user (id, pw, level, name, mail, phone) values (#{id},#{pw},#{level},#{name},#{mail},#{phone}); 
+		insert into boards (boardMenu, title, content, userNo, id, regDate) values (#{boardMenu}, #{title}, #{content}, #{userNo}, #{id}, DATE_FORMAT(NOW(),'%Y%m%d')); 
 	</insert>
 	<update id="update" parameterType="HashMap">
 		update board 

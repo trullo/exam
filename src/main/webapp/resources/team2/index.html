@@ -353,37 +353,7 @@
                         })                        
                     }                                
                     if(str="#div4_board"){
-                       var board = [
-                         {num:5, title: "제목1", name: "권형근", date: "2018-05-02", count: "1"},
-                         {num:4, title: "제목2", name: "김유경", date: "2018-05-03", count: "2"},
-                         {num:3, title: "제목3", name: "조한서", date: "2018-05-04", count: "3"},
-                         {num:2, title: "제목4", name: "조원희", date: "2018-05-05", count: "4"},
-                         {num:1, title: "제목5", name: "권형근", date: "2018-05-06", count: "5"}
-                       ];
-                       board.forEach(function(row) {
-                          var html = "";
-                          html += '<tr style="border-bottom:1px solid #CCC;">';
-                            html += '<td class="boardstyle mobiledisplaynone num">' + row.num + '</td>';
-                            html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" >' + row.title + '</td>';
-                            html += '<td class="boardstyle name" >' + row.name + '</td>';
-                            html += '<td class="boardstyle date" >' + row.date + '</td>';
-                            html += '<td class="boardstyle mobiledisplaynone count" >' + row.count + '</td>';
-                            html += '</tr>';
-                            $("#dataTable").append(html); 
-                       });
-                        $("#writebtn").on("click", function(){
-                           move_index("#write_page"); 
-                        });
-                        $(".board_btn").click(function(event){
-                            event.preventDefault();
-                            move_index("#board_view1");
-                        });
-                            $("#board_cancel").click(function(event){
-                            event.preventDefault();
-                            move_index("#div4_board");
-                        });
-                        
-                    }
+
                     
                     if(str="#div4_qa"){
                        var board = [
@@ -738,6 +708,9 @@
             </div>
         </nav>
         <div id="div4">
+        		
+        		
+        		</c:if>
                 <img class="mySlides" src="img/7.jpg" style="width: 100%; display: block;">
                 <img class="mySlides" src="img/2.jpg" style="width: 100%; display: none;">
                 <img class="mySlides" src="img/3.jpg" style="width: 100%; display: none;">

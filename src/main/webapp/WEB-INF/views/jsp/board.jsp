@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,6 +18,35 @@ $(function(){
 	var insert = "http://localhost:8080/exam/user/insert";
 	var checkId = "http://localhost:8080/exam/user/checkId";
 	$("#div_main").css("display","block");
+	var data = "${data}";
+	console.log("${data[2]
+	.
+	1
+	1
+	
+	}");
+      data.forEach(function(row) {
+         var html = "";
+         html += '<tr style="border-bottom:1px solid #CCC;">';
+           html += '<td class="boardstyle mobiledisplaynone num">' + row.boardNo + '</td>';
+           html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" >' + row.title + '</td>';
+           html += '<td class="boardstyle name" >' + row.id + '</td>';
+           html += '<td class="boardstyle date" >' + row.regDate + '</td>';
+           html += '<td class="boardstyle mobiledisplaynone count" >' + row.viewCount + '</td>';
+           html += '</tr>';
+           $("#dataTable").append(html); 
+      });
+       $("#writebtn").on("click", function(){
+          move_index("#write_page"); 
+       });
+       $(".board_btn").click(function(event){
+           event.preventDefault();
+           move_index("#board_view1");
+       });
+           $("#board_cancel").click(function(event){
+           event.preventDefault();
+           move_index("#div4_board");
+       });
 })
           
 </script>
@@ -80,7 +109,32 @@ $(function(){
             </div>
         </nav>
         <div id="div4">
-  
+	        <div id="div4_board">
+		            <div>
+		                <h1>영화 소통 게시판</h1>
+		            </div>
+		            <hr>
+		        <table class="div4_board_table">
+		           <tr id="header" style="background-color: #A99595;">
+		               <th class="mobiledisplaynone num" >번호</th>
+		               <th class="title">글제목</th>
+		               <th class="name">작성자</th>
+		               <th class="date">작성일</th>
+		               <th class="mobiledisplaynone count">조회수</th>
+		           </tr>
+		        </table>
+		           <table class="div4_board_table div4_board_table2" id="dataTable" ></table>
+		        
+		        <div id="btn_3">
+		            <form>
+		                <input type="text" name="search" value="">
+		                <input id="searchbtn" type="submit" value="">
+		            </form>
+		        </div>
+		        <div id="btn_1">
+		            <button id="writebtn" onclick="btn1_Event"></button>
+		        </div>
+		    </div> 
         </div>
         <div id="div5">
             <img class="div5_img" src="http://localhost:8080/exam/img/twitter-logo.png">

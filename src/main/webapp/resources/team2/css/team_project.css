@@ -569,20 +569,7 @@ display:none;
 
 
 /*----------------------------------------------------------*/
-#searchbtn {
-    background-image: url(img/search-btn.png);
-    background-size: cover;
-    width: 70px;
-    height: 30px;
-    
-}
-#writebtn {
-    background-image: url(img/write-btn.png);
-    background-size: cover;
-    width: 70px;
-    height: 30px;
-}
-/*qa게시판 끝*/
+
 
 /*자유게시판*/
 #div4_free #btn_3 {
@@ -654,14 +641,14 @@ display:none;
 
 /*----------------------------------------------------------*/
 #searchbtn {
-    background-image: url(img/search-btn.png);
+    background-image: url(/exam/img/search-btn.png);
     background-size: cover;
     width: 70px;
     height: 30px;
     
 }
 #writebtn {
-    background-image: url(img/write-btn.png);
+    background-image: url(/exam/img/write-btn.png);
     background-size: cover;
     width: 70px;
     height: 30px;

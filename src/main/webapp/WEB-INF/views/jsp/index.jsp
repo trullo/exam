@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,9 +13,7 @@
 <script src="http://localhost:8080/exam/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
 <script src="http://localhost:8080/exam/js/ms.js"></script>
 <script>
-	$(function(){
-        
-        
+	$(function(){        
         /* 수동 슬라이드 쇼*/
         var slideIndex = 0;
         carousel();

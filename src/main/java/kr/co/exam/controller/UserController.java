@@ -23,12 +23,6 @@ public class UserController {
 	UserServiceInterface usi;
 	Map<String, Object> map;
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-
-	@RequestMapping("/move/{menu}")
-	public String move(@PathVariable("menu") String menu) {
-		logger.info("Controller/move/"+menu);		
-		return "jsp/".concat(menu);
-	}
 	
 	@RequestMapping("/user/{menu}")
 	public ModelAndView user(@PathVariable("menu") String menu, HttpServletRequest req, HttpSession session) {
