@@ -43,6 +43,7 @@ $(function(){
 			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
 			if(d.status==0){
 				alert(d.result);
+				return false;
 			}
 		});
 		if(!pwcheck()){
@@ -53,6 +54,21 @@ $(function(){
 		$.ajax({method:"post",url:insert,data:queryString}).done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
+			if(d.status == 0){
+				alert("회원가입성공!!");
+				location.href="/exam/move/index";
+			}
+			else if(d.status == 2){
+				alert("아이디를 확인해주세요!!");
+			}
+			else if(d.status ==3){
+				alert("비밀번호가 다릅니다!!")
+			}
+			else {
+				
+			}
+			
+			
 		});
 		
 	});	

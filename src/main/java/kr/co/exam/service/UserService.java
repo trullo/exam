@@ -28,11 +28,11 @@ public class UserService implements UserServiceInterface {
 		
 		if("insert".equals(map.get("sql"))) {
 			if(checkId(map)) {
-				map.put("result", Constant.error2);
+				map.put("status", Constant.error2);
 				return HttpUtil.makeJsonView(map);
 			}
 			else if(!map.get("pw").toString().equals(map.get("pw2").toString())) {
-				map.put("result", Constant.error3);
+				map.put("status", Constant.error3);
 				return HttpUtil.makeJsonView(map);				
 			}
 			

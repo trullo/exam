@@ -18,14 +18,50 @@ $(function(){
 	var insert = "http://localhost:8080/exam/user/insert";
 	var checkId = "http://localhost:8080/exam/user/checkId";
 	$("#div_main").css("display","block");
-	var data = "${data}";
-	console.log("${data[2]
-	.
-	1
-	1
 	
-	}");
-      data.forEach(function(row) {
+	var result = new Array();
+	var page = "${page}";		//현재폐이지
+	var max = "${max.max}";		//게시판 최대글
+	var linkLength = parseInt(max/10 + 1);		//게시판 몇번째까지있나
+	var boardMenu = 0; 
+	/* 배열을 모델로 넘겨줬을때 jstl로 받는방법 */
+	<c:forEach items="${data}" var="info">
+		var json = new Object();
+		json.boardNo="${info.boardNo}";
+		json.boardMenu="${info.boardMenu}";
+		var boardMenu = "${info.boardMenu}";;	
+		json.title="${info.title}";
+		json.content="${info.content}";
+		json.userNo="${info.userNo}";
+		json.id="${info.id}";
+		json.regDate="${info.regDate}";
+		json.viewCount="${info.viewCount}";
+		json.boardDelYn="${info.boardDelYn}";
+		json.max="${info.max}";
+		result.push(json);
+	</c:forEach>
+	
+	console.log(page);
+	console.log(max);
+	for(var i=1;i<=linkLength;i++){
+		var html = "";
+		html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-1)+"'>"+i+"</a></li>";
+		$("#link ul").append(html);
+	}
+	
+	result.forEach(function(row){
+        var html = "";
+        html += '<tr style="border-bottom:1px solid #CCC;">';
+          html += '<td class="boardstyle mobiledisplaynone num">' + row.boardNo + '</td>';
+          html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" >' + row.title + '</td>';
+          html += '<td class="boardstyle name" >' + row.id + '</td>';
+          html += '<td class="boardstyle date" >' + row.regDate + '</td>';
+          html += '<td class="boardstyle mobiledisplaynone count" >' + row.viewCount + '</td>';
+          html += '<input type="hidden" name="num" value="'+row.boardNo+'"/>';
+          html += '</tr>';
+          $("#dataTable").append(html); 
+	});
+/*       data.forEach(function(row) {
          var html = "";
          html += '<tr style="border-bottom:1px solid #CCC;">';
            html += '<td class="boardstyle mobiledisplaynone num">' + row.boardNo + '</td>';
@@ -46,7 +82,7 @@ $(function(){
            $("#board_cancel").click(function(event){
            event.preventDefault();
            move_index("#div4_board");
-       });
+       }); */
 })
           
 </script>
@@ -124,16 +160,21 @@ $(function(){
 		           </tr>
 		        </table>
 		           <table class="div4_board_table div4_board_table2" id="dataTable" ></table>
-		        
-		        <div id="btn_3">
-		            <form>
-		                <input type="text" name="search" value="">
-		                <input id="searchbtn" type="submit" value="">
-		            </form>
-		        </div>
-		        <div id="btn_1">
-		            <button id="writebtn" onclick="btn1_Event"></button>
-		        </div>
+
+			        <div id="btn_3">
+			            <form>
+			                <input type="text" name="search" value="">
+			                <input id="searchbtn" type="submit" value="">
+			            </form>
+			        </div>
+			        <div ID="link">
+			        	<ul>
+			        		
+			        	</ul>
+			        </div>
+			        <div id="btn_1">
+			            <button id="writebtn" onclick="btn1_Event"></button>
+			        </div>
 		    </div> 
         </div>
         <div id="div5">

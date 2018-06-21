@@ -26,6 +26,12 @@ public class BoardsService implements BoardsServiceInterface {
 		}
 		System.out.println(param);
 		mav.addObject("data", di.call(param));
+		mav.addObject("page", param.get("page"));
+		
+		param.put("sql", "selectOne");
+		param.put("sqlType", "boards.listMax");		
+		mav.addObject("max", di.call(param));
+		
 		mav.setViewName("jsp/board");
 				
 		return mav;

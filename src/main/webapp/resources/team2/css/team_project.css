@@ -1052,3 +1052,11 @@ display:none;
 	text-transform: uppercase;
     float: left;
 }
+/* 게시판 페이지이동 */
+#link ul {
+	list-style: none;
+}
+#link ul li {
+	float: left;
+	margin: 0 5px;
+}
