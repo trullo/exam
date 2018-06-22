@@ -4,6 +4,9 @@ $(function(){
 	var movie = "exam/move/movie";
 	var movie2 = "exam/move/movie2";
 	var board = "exam/board/selectList?boardMenu=1&page=0";
+	var board2 = "exam/board/selectList?boardMenu=2&page=0";
+	var board3 = "exam/board/selectList?boardMenu=3&page=0";
+	var write = "exam/move/boardWrite"
 	var reg = "exam/move/reg"
 	var login = "http://localhost:8080/exam/user/selectOne";
     $("#navigation-menu").hide();
@@ -28,7 +31,7 @@ $(function(){
     });
     $("#menu_btn4").click(function(event){
        event.preventDefault();
-        move_index("#div4_free");
+       location.href=`${localhost}${board2}`;
     });
     $("#menu_btn5").click(function(event){
        event.preventDefault();
@@ -36,7 +39,7 @@ $(function(){
     });
     $("#menu_btn6").click(function(event){
        event.preventDefault();
-        move_index("#div4_qa");
+       location.href=`${localhost}${board3}`;
     });
     $("#menu_btn7").click(function(event){
        $("#navigation-login").slideToggle(500);
@@ -68,10 +71,10 @@ $(function(){
     		console.log(d);
     		var html="";
     		if(d.status==1){
-    			html="<h1>로그인 성공</h1>";
-    			html="<h3>${member}님 환영합니다</h3>";
-    			html="<h3>좋은하루되세요</h3>";
-        		$(body).append(html);    			
+    			html+="<h1>로그인 성공</h1>";
+    			html+="<h3>"+d.id+"님 환영합니다</h3>";
+    			html+="<h3>좋은하루되세요</h3>";
+        		$("#div4").html(html);    			
     		} 
     		else {
     			alert("                로그인실패\n아이디나 비밀번호를 확인해주세요")
@@ -103,9 +106,18 @@ $(function(){
             case 0 : location.href=`${localhost}${movie}`; break;
             case 1 : location.href=`${localhost}${movie2}`; break; 
             case 2 : location.href=`${localhost}${board}`; break;
-            case 3 : move_index("#div4_free"); break;
+            case 3 : location.href=`${localhost}${board2}`; break;
             case 4 : move_index("#div4_map"); break;
-            case 5 :move_index("#div4_qa"); 
+            case 5 :location.href=`${localhost}${board3}`; 
         }
     });
+    
+    
 });
+//get파라미터 가져오는 메소드
+function urlParameter (name) {
+	  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+	  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	  results = regex.exec(location.search);
+	  return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}

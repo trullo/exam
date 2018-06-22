@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,7 @@ public class UserService implements UserServiceInterface {
 		else if("selectOne".equals(map.get("sql").toString())) {
 			map.put("sqlType", "user.selectOne");
 			if(di.call(map) != null) {
+				resultMap.put("id", map.get("id"));
 				resultMap.put("result", "로그인성공");
 				resultMap.put("status", 1);
 				session.setAttribute("member", di.call(map));

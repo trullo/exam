@@ -1052,11 +1052,61 @@ display:none;
 	text-transform: uppercase;
     float: left;
 }
-/* 게시판 페이지이동 */
+/* 게시판 리스트 */
 #link ul {
 	list-style: none;
 }
 #link ul li {
 	float: left;
 	margin: 0 5px;
+}
+/* ----------- */
+/* 글쓰기 */
+#div4 #div4_write {
+	width: 80%;
+}
+#div4 #div4_write #input {
+}
+#div4 #div4_write #input #head {
+	width: 100%;	
+}
+#div4 #div4_write #input #head #title {
+	width: 70%;
+}
+#div4 #div4_write #input #content {
+	width: 100%;
+}
+
+
+.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip:rect(0,0,0,0);
+  border: 0;
+}
+
+#modal {
+  position:absolute;
+  background:rgba(0,0,0,0.2);
+  border-radius:4px;
+  padding:4px;
+}
+#content {
+  border-radius:2px;
+  background:#fff000;
+  padding:20px;
+}
+#close {
+  position:absolute;
+  background:url(resources/img/close.png) 0 0 no-repeat;
+  width:24px;
+  height:27px;
+  display:block;
+  text-indent:-9999px;
+  top:-7px;
+  right:-7px;
 }

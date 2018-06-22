@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +21,11 @@ public class BordersController {
 	BoardsServiceInterface bsi;
 	
 	@RequestMapping("board/{menu}")
-	public ModelAndView board(@PathVariable String menu,HttpServletRequest req) {
+	public ModelAndView board(@PathVariable String menu,HttpServletRequest req,HttpSession session) {
 		Map<String, Object> param = HttpUtil.getParamMap(req);
 		param.put("sql", menu);
-		return bsi.call(param);
+		return bsi.call(param,session);
 	}
+	
+	
 }

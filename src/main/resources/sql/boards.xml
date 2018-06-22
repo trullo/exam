@@ -9,10 +9,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listMax" parameterType="HashMap" resultType="HashMap">
 		select count(*) as max from boards where boardMenu = #{boardMenu} and boarddelYn = 'N';
 	</select>	
-	<select id="checkId" parameterType="HashMap" resultType="HashMap">
-		select * from user where id = #{id} limit 1;
-	</select>	
-	
+	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
+		select * from boards where boardNo = #{boardNo} and boardDelYn = 'N' limit 1;
+	</select>		
 	<insert id="insert">
 		insert into boards (boardMenu, title, content, userNo, id, regDate) values (#{boardMenu}, #{title}, #{content}, #{userNo}, #{id}, DATE_FORMAT(NOW(),'%Y%m%d')); 
 	</insert>

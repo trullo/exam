@@ -17,21 +17,34 @@ $(function(){
 	var localhost = "http://localhost:8080/";
 	var insert = "http://localhost:8080/exam/user/insert";
 	var checkId = "http://localhost:8080/exam/user/checkId";
+	var write = "http://localhost:8080/exam/move/boardWrite";
+	var boardView = "http://localhost:8080/exam/board/selectOne"; 
 	$("#div_main").css("display","block");
 	
 	var result = new Array();
 	var page = "${page}";		//현재폐이지
 	var max = "${max.max}";		//게시판 최대글
-	var linkLength = parseInt(max/10 + 1);		//게시판 몇번째까지있나
-	var boardMenu = 0; 
+	var linkLength = parseInt(max/10 + 1);		
+	var linkStart = parseInt(page/10 +1);		
+	var linkLast = linkStart!=linkLength?linkLength:linkLength==1?1:linkStart + 9; 				//1  + 9 10까지 11 + 9 20 까지 끝단이면 거기까지
+	
+	console.log("linkLength :" + linkLength);
+	console.log("linkStart :" + linkStart);
+	console.log("linkLast :" + linkLast);
+	var boardMenu = urlParameter("boardMenu");
+	console.log(boardMenu)
+ 	switch(boardMenu)  { 
+		case '1' : $("#div4Head").text("영화소통게시판"); break;
+		case '2' : $("#div4Head").text("자유 게시판"); break;
+		case '3' : $("#div4Head").text("Q&A"); break;
+	}
+	
 	/* 배열을 모델로 넘겨줬을때 jstl로 받는방법 */
 	<c:forEach items="${data}" var="info">
 		var json = new Object();
 		json.boardNo="${info.boardNo}";
 		json.boardMenu="${info.boardMenu}";
-		var boardMenu = "${info.boardMenu}";;	
 		json.title="${info.title}";
-		json.content="${info.content}";
 		json.userNo="${info.userNo}";
 		json.id="${info.id}";
 		json.regDate="${info.regDate}";
@@ -40,12 +53,16 @@ $(function(){
 		json.max="${info.max}";
 		result.push(json);
 	</c:forEach>
-	
-	console.log(page);
-	console.log(max);
-	for(var i=1;i<=linkLength;i++){
+		
+	for(var i = linkStart;i<=linkLast;i++){
 		var html = "";
+		if(i==linkStart && parseInt(page/10) > 0) {
+			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(((page/10)-1)*10)+"'><</a></li>";
+		}
 		html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-1)+"'>"+i+"</a></li>";
+		if(i==linkLength && parseInt(linkStart) < (linkLength/10)){
+			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(((page/10)+1)*10)+"'>></a></li>";
+		}				
 		$("#link ul").append(html);
 	}
 	
@@ -53,7 +70,7 @@ $(function(){
         var html = "";
         html += '<tr style="border-bottom:1px solid #CCC;">';
           html += '<td class="boardstyle mobiledisplaynone num">' + row.boardNo + '</td>';
-          html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" >' + row.title + '</td>';
+          html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" ><a href="'+boardView+'?boardNo='+row.boardNo+'">' + row.title + '</a></td>';
           html += '<td class="boardstyle name" >' + row.id + '</td>';
           html += '<td class="boardstyle date" >' + row.regDate + '</td>';
           html += '<td class="boardstyle mobiledisplaynone count" >' + row.viewCount + '</td>';
@@ -61,6 +78,11 @@ $(function(){
           html += '</tr>';
           $("#dataTable").append(html); 
 	});
+	
+	$("#writebtn").on("click",function(){
+		location.href=write+"?boardMenu="+boardMenu;
+	})
+	
 /*       data.forEach(function(row) {
          var html = "";
          html += '<tr style="border-bottom:1px solid #CCC;">';
@@ -147,7 +169,7 @@ $(function(){
         <div id="div4">
 	        <div id="div4_board">
 		            <div>
-		                <h1>영화 소통 게시판</h1>
+		                <h1 id="div4Head"></h1>
 		            </div>
 		            <hr>
 		        <table class="div4_board_table">
@@ -173,7 +195,7 @@ $(function(){
 			        	</ul>
 			        </div>
 			        <div id="btn_1">
-			            <button id="writebtn" onclick="btn1_Event"></button>
+			            <button id="writebtn"></button>
 			        </div>
 		    </div> 
         </div>
