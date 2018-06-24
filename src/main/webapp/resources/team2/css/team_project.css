@@ -89,7 +89,7 @@ div{display: inline-block; }
 #div4{
     background-color: #f2f2f2;
     width: 100%;
-    height: 700px;
+    height: 707px;
     display: inline-block;
 }
 #div4 #trailertitle {
@@ -126,7 +126,7 @@ display:none;
     display: block;
     background-color: #13217b;
     width: 100%;
-    height: 100px;
+    height: 50px;
     text-align: center;
     color: #f9ab31; 
     font-size: 1.5rem;
@@ -664,7 +664,8 @@ display:none;
 #div_main {
     display: none;
     width: 70vw;
-    margin-left: 15vw;    
+    margin-left: 15vw;
+    position: relative;    
 }
 #div0 {
     width: 100vw;
@@ -949,6 +950,11 @@ display:none;
     overflow: scroll;
     -ms-overflow-style: none;
 }
+.div4_index {
+    height: 100%;
+    overflow: scroll;
+    -ms-overflow-style: none;
+}
 ::-webkit-scrollbar {
 display:none;
 } 
@@ -1110,3 +1116,28 @@ display:none;
   top:-7px;
   right:-7px;
 }
+#div4_movie {
+	position: relative;
+}
+#div4_foot { 
+	display:block;
+	width:100%;
+	height:auto;
+}
+#div4_foot #btn {
+	position: absolute;
+	right: 10px;
+	margin: 10px 0;
+}
+.rel {
+	position: relative;
+}
+#div4_movieWrite {
+	display: flex;
+	position:absolute;
+	width:60%;
+	left:20%;
+	flex-direction: column;  
+	text-align: left;
+}
+

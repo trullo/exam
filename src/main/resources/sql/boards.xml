@@ -11,19 +11,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>	
 	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
 		select * from boards where boardNo = #{boardNo} and boardDelYn = 'N' limit 1;
+	</select>
+	<select id="searchList" parameterType="HashMap" resultType="HashMap">
+		select * from boards where title LIKE #{text} or content LIKE #{text} and boardMenu = #{boardMenu} and boarddelYn = 'N' order by boardNo desc limit #{number}, 10;
+	</select>	
+	<select id="searchMax" parameterType="HashMap" resultType="HashMap">
+		select count(*) as max from boards where title LIKE #{text} and content LIKE #{text} and  boardMenu = #{boardMenu} and boarddelYn = 'N';
 	</select>		
 	<insert id="insert">
 		insert into boards (boardMenu, title, content, userNo, id, regDate) values (#{boardMenu}, #{title}, #{content}, #{userNo}, #{id}, DATE_FORMAT(NOW(),'%Y%m%d')); 
 	</insert>
+	
 	<update id="update" parameterType="HashMap">
-		update board 
-		set title       = #{title},
+		update boards 
+		set boardMenu = #{boardMenu},
+			title = #{title},
 			content = #{content}
 		where boardNo = #{boardNo}
 	</update>
 	<update id="delete" parameterType="HashMap">
-		update user 
-		set userDelYn = 'Y'
-		where userNo = #{userNo}
+		update boards set boardDelYn = 'Y' where boardNo = #{boardNo};
 	</update>
+	<update id="plus" parameterType="HashMap">
+		update boards set viewCount = viewCount+1 where boardNo = #{boardNo};
+	</update>	
 </mapper>

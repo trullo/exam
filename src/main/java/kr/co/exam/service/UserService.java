@@ -78,6 +78,9 @@ public class UserService implements UserServiceInterface {
 				
 		return HttpUtil.makeJsonView(resultMap);
 	}
+	
+	
+	
 
 	@Override
 	public boolean checkId(Map<String, Object> map) {

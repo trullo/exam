@@ -15,80 +15,50 @@
 <script>
 $(function(){
 	var localhost = "http://localhost:8080/";
-	var insert = "http://localhost:8080/exam/user/insert";
-	var checkId = "http://localhost:8080/exam/user/checkId";
+	var boardInsert = localhost+"exam/board/insert";
+	var selectOne = localhost+"exam/board/selectOne";
 	$("#div_main").css("display","block");
-	$("#div4_regser #form").on("submit",function(event){
-	      event.preventDefault();	      
+	
+	var boardNo = urlParameter('boardNo');
+	var boardMenu = urlParameter('boardMenu');
+
+	$("#boardMenu option").eq(boardMenu-1).attr("selected","selected");
+	
+	var CDN_FULL = "https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js";
+	var CDN_STANDARD = "https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js";
+	var CDN_BASIC = "https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js";
+	
+	$.getScript(CDN_FULL).done(function() {
+        if (CKEDITOR.instances['edit']) {
+            CKEDITOR.instances['edit'].destroy(); /* 기존 CKEDITOR 종료 */
+        }
+        /* CKEDITOR 생성*/
+        CKEDITOR.replace('edit', {
+      	  customConfig: '${pageContext.request.contextPath}/resources/team2/js/config.js',
+      	  filebrowserUploadUrl: '${pageContext.request.contextPath}/fileUpload'
+        });
+    });
+	
+	$.ajax({method:"get",url:selectOne,data:{boardNo:boardNo,boardMenu:boardMenu}})
+	.done(function(data){
+		var d = JSON.parse(data);
+		$("#title").val(d.result.title);
+		$("#edit").val(d.result.content);
 	});
 	
-	$("#div4_regser #id").focusout(function(){
-		if(idnullcheck()){
-			return false;
-		}
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			alert(d.result);
-		});
-	});
-	
-	$("#div4_regser form").on("submit",function(event){
-		event.preventDefault();
-		if(idnullcheck()){
-			return false;
-		}		
-		var queryString = $("#form").serialize();
-		console.log(queryString);
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			if(d.status==0){
-				alert(d.result);
-				return false;
-			}
-		});
-		if(!pwcheck()){
-			alert("비밀번호가 다릅니다, 확인해주세요");
-			return false;
-		};
-		
-		$.ajax({method:"post",url:insert,data:queryString}).done(function(data){
+	$("#save").on("click",function(){
+		var title = $("#title").val();
+		var content = CKEDITOR.instances['edit'].getData();
+		console.log("save click!!"+$("#edit").val());
+		/* $.ajax({method:"post",url:boardInsert,data:{"title":$("#title").val(),"content":CKEDITOR.instances['edit'].getData(),"boardMenu":$("#boardMenu").val()}}) */
+		$.ajax({method:"post",url:boardInsert,data:{"title":title,"content":content,"boardMenu":$("#boardMenu").val()}})
+		.done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
-			if(d.status == 0){
-				alert("회원가입성공!!");
-				location.href="/exam/move/index";
-			}
-			else if(d.status == 2){
-				alert("아이디를 확인해주세요!!");
-			}
-			else if(d.status ==3){
-				alert("비밀번호가 다릅니다!!")
-			}
-			else {
-				
-			}
-			
-			
-		});
-		
-	});	
-	function pwcheck(){
-		if($("#pw").val() == $("#pw2").val()){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	function idnullcheck(){
-		if($("#id").val() == ""){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-
+		});		
+	});
+	
+	
 })
           
 </script>
@@ -157,53 +127,23 @@ $(function(){
             </div>
         </nav>
         <div id="div4">
-		    <div id="div4_regser">
-	            <div>
-	                <h1>회원가입</h1>
-	            </div>
-		            <hr>
-		        <form id="form">
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label for="userid">아이디</label>
-		            <input id="id" name="id" type="text" autofocus required>
-		          </li>
-		          <li>
-		            <label for="pwd1">비밀번호</label>
-		            <input id="pw" name="pw" type="password" required>
-		          </li>
-		          <li>
-		            <label pwd="pwd2">비밀번호 확인</label>
-		            <input id="pw2" name="pw2" type="password" required>
-		          </li>  
-		          <li>
-		            <label pwd="level">회원 등급</label>
-		            <input id="level" name="level" type="text" readonly value="준회원">
-		          </li>
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label pwd="fullname">이름</label>
-		            <input id="name" name="name" type="text" placeholder="5자미만 공백없이" required>
-		          </li>
-		          <li>
-		            <label pwd="email">메일 주소</label>
-		            <input id="mail" name="mail" type="mail" placeholder="abcd@domain.com" required autocomplete="off">
-		          </li>
-		          <li>
-		            <label pwd="tel">연락처</label>
-		            <input id="phone" name="phone" type="tel" autocomplete="off" required>
-		          </li>  
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		          <button type="submit"> 회원가입 </button> <button id="backhome"> 뒤로가기 </button>
-		        </fieldset>
-		        </form>
-		    </div>    
+	        <div id="div4_write">
+				<section id="input">
+					<h1>입력 화면</h1>
+					<div id="head">
+						<select id="boardMenu" name="boardMenu" >
+							<option value="1">영화소통게시판</option>
+							<option value="2">자유게시판</option>
+							<option value="3">Q&A</option>						
+						</select>
+						<input type="text" id="title" name="title" placeholder="제목을 입력하세요.">
+					</div>
+					<hr>
+					<textarea id="edit" name="edit"></textarea>
+					<button type="button" id="save">글쓰기</button>
+					<button type="button" id="back">돌아가기</button>					
+				</section>			
+		    </div> 
         </div>
         <div id="div5">
             <img class="div5_img" src="http://localhost:8080/exam/img/twitter-logo.png">

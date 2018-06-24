@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" media="only screen and (min-width:769px) and (max-width: 1200px) " href=" http://localhost:8080/exam/css/tablet.css">
 <link rel="stylesheet" type="text/css" media="only screen and (max-width: 768px)" href=" http://localhost:8080/exam/css/mobile.css">
 <link rel="stylesheet" href=" http://localhost:8080/exam/css/menubar.css">
-<script src="http://localhost:8080/exam/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
+<script src="http://localhost:8080/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
 <script src="http://localhost:8080/exam/js/ms.js"></script>
 <script>
 $(function(){
@@ -40,10 +40,11 @@ $(function(){
 
 	
 	$("#save").on("click",function(){
-		var content = 
+		var title = $("#title").val();
+		var content = CKEDITOR.instances['edit'].getData();
 		console.log("save click!!"+$("#edit").val());
 		/* $.ajax({method:"post",url:boardInsert,data:{"title":$("#title").val(),"content":CKEDITOR.instances['edit'].getData(),"boardMenu":$("#boardMenu").val()}}) */
-		$.ajax({method:"post",url:boardInsert,data:{"title":$("#title").val(),"content":content,"boardMenu":$("#boardMenu").val()}})
+		$.ajax({method:"post",url:boardInsert,data:{"title":title,"content":content,"boardMenu":$("#boardMenu").val()}})
 		.done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
@@ -88,7 +89,13 @@ $(function(){
                    </li>
                    <li id="menu_btn5" class='active has-sub'><span>내근처영화관</span></li>
                    <li id="menu_btn6" class='active has-sub'><span>Q&A</span></li>
-                   <li id="menu_btn7" class='active has-sub'><span>Login</span></li>
+                   <c:if test="${member == null}">
+                   	<li id="menu_btn7" class='active has-sub'><span>Login</span></li>
+                   	<li id="menu_btn8" class='active has-sub'><span>SingUp</span></li>
+                   </c:if>
+                   <c:if test="${member != null}">
+                   	<li id="menu_btn9" class='active has-sub'><span>Logout</span></li>
+                   </c:if>                   
                 </ul>
                 </div>
                 <div id="reg" class="atag" href="#"><img id="img1" src="http://localhost:8080/exam/img/register%20icon.png"></div>

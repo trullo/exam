@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie">
+	<select id="selectList" parameterType="HashMap" resultType="HashMap">
+		select * from movie where movieMenu = 1 order by movieNo desc limit 10;
+	</select>
+	<select id="selectList2" parameterType="HashMap" resultType="HashMap">
+		select * from movie where movieMenu = 2 order by movieNo desc limit 10;
+	</select>	
+	<select id="fileList" parameterType="HashMap" resultType="HashMap">
+		select * from file order by fileNo desc limit 10;
+	</select>		
+	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
+		select movieNo from movie where title = #{title} and movieDelYn = 'N' order by movieNo desc limit 1;
+	</select>		
+	<insert id="minsert">
+		insert into movie (movieMenu, age, title, `release`, director, zenre, showtime, summary) values (#{movieMenu},#{age},#{title},#{release},#{director},#{zenre},#{showtime},#{summary}); 
+	</insert>
+	<insert id="finsert">
+		insert into file (movieNo, fileName, fileUrl, regDate) values (#{movieNo},#{fileName},#{fileUrl},DATE_FORMAT(NOW(),'%Y%m%d'));
+	</insert>
+	<insert id="markInsert" parameterType="HashMap">
+		insert into mark (userNo, movieNo, mark) values (#{userNo},#{movieNo},#{mark});
+	</insert>
+	<select id="markselect" parameterType="HashMap" resultType="HashMap" >
+		Select * from mark where userNo = #{userNo} and movieNo = #{movieNo};
+	</select>	
+	<select id="marklist" parameterType="HashMap" resultType="HashMap" >
+		select count(*) as people, sum(mark) as point from mark where movieNo = #{movieNo};
+	</select>	
+		
+</mapper>

@@ -7,6 +7,7 @@ $(function(){
 	var board2 = "exam/board/selectList?boardMenu=2&page=0";
 	var board3 = "exam/board/selectList?boardMenu=3&page=0";
 	var write = "exam/move/boardWrite"
+	var map = "exam/move/map"
 	var reg = "exam/move/reg"
 	var login = "http://localhost:8080/exam/user/selectOne";
     $("#navigation-menu").hide();
@@ -15,8 +16,7 @@ $(function(){
         $("#navigation-menu").slideToggle(300);
         return false;
     });
-    
-    // a 하이퍼 죽이고 위에것처럼 기능부여해야함 될려나? 됨ㅎ
+
     $("#menu_btn1").click(function(event){
        event.preventDefault();
         location.href=`${localhost}${movie}`;
@@ -35,7 +35,7 @@ $(function(){
     });
     $("#menu_btn5").click(function(event){
        event.preventDefault();
-        move_index("#div4_map");
+       location.href=`${localhost}${map}`;
     });
     $("#menu_btn6").click(function(event){
        event.preventDefault();
@@ -46,6 +46,12 @@ $(function(){
         $("#navigation-login form #nid").focusin();                
         return false;
     });
+    $("#menu_btn8").on("click",function(){
+    	location.href=`${localhost}${reg}`;
+    })
+    $("#menu_btn9").on("click",function(){
+    	location.href=`${localhost}exam/clear`;
+    })    
     
     $("#navigation-login").hide();
     $("#login").mousedown(function(){
@@ -71,10 +77,8 @@ $(function(){
     		console.log(d);
     		var html="";
     		if(d.status==1){
-    			html+="<h1>로그인 성공</h1>";
-    			html+="<h3>"+d.id+"님 환영합니다</h3>";
-    			html+="<h3>좋은하루되세요</h3>";
-        		$("#div4").html(html);    			
+    			alert("로그인성공!!\n"+d.id+"님 환영합니다")
+    			location.href=`${localhost}${index}`;
     		} 
     		else {
     			alert("                로그인실패\n아이디나 비밀번호를 확인해주세요")
@@ -84,7 +88,7 @@ $(function(){
     //---------
     
     $(".submit_reg").click(function(){
-        move_index("#div4_regser");
+    	location.href=`${localhost}${reg}`;
     });      
     $("#reg").mousedown(function(){
     	location.href=`${localhost}${reg}`;
@@ -107,7 +111,7 @@ $(function(){
             case 1 : location.href=`${localhost}${movie2}`; break; 
             case 2 : location.href=`${localhost}${board}`; break;
             case 3 : location.href=`${localhost}${board2}`; break;
-            case 4 : move_index("#div4_map"); break;
+            case 4 : location.href=`${localhost}${map}`;
             case 5 :location.href=`${localhost}${board3}`; 
         }
     });

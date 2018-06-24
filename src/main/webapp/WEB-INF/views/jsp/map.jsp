@@ -13,87 +13,115 @@
 <script src="http://localhost:8080/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
 <script src="http://localhost:8080/exam/js/ms.js"></script>
 <script>
-$(function(){
-	var localhost = "http://localhost:8080/";
-	var insert = "http://localhost:8080/exam/user/insert";
-	var checkId = "http://localhost:8080/exam/user/checkId";
+/* 영화게시판들 */
+$(function(){	
 	$("#div_main").css("display","block");
-	$("#div4_regser #form").on("submit",function(event){
-	      event.preventDefault();	      
-	});
-	
-	$("#div4_regser #id").focusout(function(){
-		if(idnullcheck()){
-			return false;
-		}
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			alert(d.result);
-		});
-	});
-	
-	$("#div4_regser form").on("submit",function(event){
-		event.preventDefault();
-		if(idnullcheck()){
-			return false;
-		}		
-		var queryString = $("#form").serialize();
-		console.log(queryString);
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			if(d.status==0){
-				alert(d.result);
-				return false;
-			}
-		});
-		if(!pwcheck()){
-			alert("비밀번호가 다릅니다, 확인해주세요");
-			return false;
-		};
-		
-		$.ajax({method:"post",url:insert,data:queryString}).done(function(data){
-			var d = JSON.parse(data);
-			console.log(d);
-			if(d.status == 0){
-				alert("회원가입성공!!");
-				location.href="/exam/move/index";
-			}
-			else if(d.status == 2){
-				alert("아이디를 확인해주세요!!");
-			}
-			else if(d.status ==3){
-				alert("비밀번호가 다릅니다!!")
-			}
-			else {
-				
-			}
-			
-			
-		});
-		
-	});	
-	function pwcheck(){
-		if($("#pw").val() == $("#pw2").val()){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	function idnullcheck(){
-		if($("#id").val() == ""){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
+    $.getScript("http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyAha88ou3uEZFgOFxBZhqoIJP5_6ihwzbw", function(){
+        var map;
+        var infowindow;
+        function getLocation(){ //좌표 자동 생성
+                    if(navigator.geolocation){
+                        navigator.geolocation.getCurrentPosition(initMap);
+                    }else{
+                        alert("Not Support Browser");
+                    }
+            }
 
+          function initMap(position) {
+            geocoder = new google.maps.Geocoder();
+
+            var pyrmont = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+            map = new google.maps.Map(document.getElementById('div4_map'), {
+              center: pyrmont,
+              zoom: 14
+            });
+
+            infowindow = new google.maps.InfoWindow();
+            var service = new google.maps.places.PlacesService(map);
+            service.nearbySearch({
+              location: pyrmont,
+              radius: 5000,
+              type: ['movie_theater']
+            }, callback);
+          }
+
+          //google.maps.event.addDomListener(window, 'load', getLocation);
+          getLocation();
+
+          function callback(results, status) {
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+              for (var i = 0; i < results.length; i++) {
+                createMarker(results[i]);
+              }
+            }
+          }
+
+          function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+              map: map,
+              position: place.geometry.location
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+              infowindow.setContent(place.name);
+              infowindow.open(map, this);
+            });
+          }
+             
+    });
 })
           
 </script>
 </head>
-<body>  
+<body>
+   <article id="poster_back">
+        <a>X</a>
+        <div id="poster_body"> 
+            <div id="poster_header">
+               <div id="img">
+               </div>            
+               <div id="header_in">
+                   <div id="age_title">
+                       <div class="age" style="background-color: skyblue;" >12</div>
+                       <div class="title"></div>
+                   </div>
+                   <div id="star_point">
+                   		<input type="hidden" id="num">
+                        <div>
+                            <div><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></div>
+                            <people>10명 참여</people>
+                        </div>
+                        <div>
+                            <point>7.8</point>                        
+                       </div>
+                   </div>
+                   <div id="date">
+                        <span class="parent_text">개봉일 : </span><realdate class="item_text">2001.10.27</realdate>
+                   </div>
+                   <div >
+                        <span class="parent_text">감독 : </span><director class="item_text">director</director>
+                   </div>
+                   <div c>
+                       <span class="parent_text">장르 : </span><genre class="item_text">백스테이지 뮤지컬, 코미디 영화, 로맨스, 드라마</genre>
+                   </div>
+                   <div id="div_showtime">
+                       <span class="parent_text">상영시간 : </span><showtime class="item_text">114분</showtime>
+                   </div>
+                    <div id="star">
+                        <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                    </div>
+                    <div>
+                        <p></p>
+                    </div>
+               </div>
+            </div>
+            <div id="poster_contents">
+                <h1>줄거리</h1>
+                <p></p>
+            </div>
+        </div>
+    </article>     
 	<div id="div_main">
         <div id="div1">
             <div id="home">
@@ -150,60 +178,15 @@ $(function(){
             </nav>          
             <div id="navigation-login">
             <form>
-                <p>ID: &nbsp;&nbsp;<input id="nid" class="input_type" type="text" placeholder="아이디를 입력하세요." autofocus required><img src=""></p>
+                <p>ID: &nbsp;&nbsp;<input id="nid" class="input_type" type="text" placeholder="아이디를 입력하세요." required><img src=""></p>
                 <p>PW: <input id="npw" class="input_type" type="text" placeholder="비밀번호를 입력하세요." required></p>
                 <div><img id="backbutton" src="http://localhost:8080/exam/img/back.png"></div><div><img id="smallloginbutton" src="http://localhost:8080/exam/img/login.png"></div>
             </form>
             </div>
         </nav>
         <div id="div4">
-		    <div id="div4_regser">
-	            <div>
-	                <h1>회원가입</h1>
-	            </div>
-		            <hr>
-		        <form id="form">
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label for="userid">아이디</label>
-		            <input id="id" name="id" type="text" autofocus required>
-		          </li>
-		          <li>
-		            <label for="pwd1">비밀번호</label>
-		            <input id="pw" name="pw" type="password" required>
-		          </li>
-		          <li>
-		            <label pwd="pwd2">비밀번호 확인</label>
-		            <input id="pw2" name="pw2" type="password" required>
-		          </li>  
-		          <li>
-		            <label pwd="level">회원 등급</label>
-		            <input id="level" name="level" type="text" readonly value="준회원">
-		          </li>
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label pwd="fullname">이름</label>
-		            <input id="name" name="name" type="text" placeholder="5자미만 공백없이" required>
-		          </li>
-		          <li>
-		            <label pwd="email">메일 주소</label>
-		            <input id="mail" name="mail" type="mail" placeholder="abcd@domain.com" required autocomplete="off">
-		          </li>
-		          <li>
-		            <label pwd="tel">연락처</label>
-		            <input id="phone" name="phone" type="tel" autocomplete="off" required>
-		          </li>  
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		          <button type="submit"> 회원가입 </button> <button id="backhome"> 뒤로가기 </button>
-		        </fieldset>
-		        </form>
-		    </div>    
+		   <div id="div4_map">
+		    </div>
         </div>
         <div id="div5">
             <img class="div5_img" src="http://localhost:8080/exam/img/twitter-logo.png">

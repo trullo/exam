@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="true" %>
+<%@ page session="false" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,39 +10,46 @@
 <link rel="stylesheet" type="text/css" media="only screen and (min-width:769px) and (max-width: 1200px) " href=" http://localhost:8080/exam/css/tablet.css">
 <link rel="stylesheet" type="text/css" media="only screen and (max-width: 768px)" href=" http://localhost:8080/exam/css/mobile.css">
 <link rel="stylesheet" href=" http://localhost:8080/exam/css/menubar.css">
-<script src="http://localhost:8080/exam/webjars/jquery/3.2.1/dist/jquery.min.js"></script>
+<script src="http://localhost:8080/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
 <script src="http://localhost:8080/exam/js/ms.js"></script>
 <script>
 $(function(){
 	var localhost = "http://localhost:8080/";
 	$("#div_main").css("display","block");	
+	var back = localhost+"exam/board/selectList"
+	var del = localhost+"exam/board/delete"
+	var search = localhost+"exam/board/searchList"
+	
 
-	var CDN_FULL = "https://cdn.ckeditor.com/4.7.3/full-all/ckeditor.js";
-	var CDN_STANDARD = "https://cdn.ckeditor.com/4.9.2/standard/ckeditor.js";
-	var CDN_BASIC = "https://cdn.ckeditor.com/4.9.2/basic/ckeditor.js";
-	$.getScript(CDN_FULL).done(function() {
-          if (CKEDITOR.instances['edit']) {
-              CKEDITOR.instances['edit'].destroy(); /* 기존 CKEDITOR 종료 */
-          }
-          /* CKEDITOR 생성*/
-          CKEDITOR.replace('edit', {
-        	  customConfig: '${pageContext.request.contextPath}/resources/js/config.js',
-        	  filebrowserUploadUrl: '${pageContext.request.contextPath}/fileUpload'
-          });
-      });
+	var boardNo = urlParameter('boardNo');
+	var boardMenu = urlParameter('boardMenu');
 	
+	$.ajax({method:"get",url:"/exam/plus",data:{boardNo:boardNo}})
+	.done(function(data){
+		console.log("조회수상승");
+	});
 	
-	var json = new Object();
-	json.boardNo="${data.boardNo}";
-	json.boardMenu="${data.boardMenu}";
-	json.title="${data.title}";
-	$("#view h1").text(<c:out value="${data.content}"/>);
-	json.userNo="${data.userNo}";
-	json.id="${data.id}";
-	json.regDate="${data.regDate}";
-	json.viewCount="${data.viewCount}";
-	json.boardDelYn="${data.boardDelYn}";
-	console.log(json);
+	$.ajax({method:"get",url:"http://localhost:8080/exam/board/selectOne",data:{boardNo:boardNo}})
+	.done(function(data){
+		var d = JSON.parse(data);
+		console.log(d);
+		$("#textview").html(d.result.content);
+	});
+	
+	$("#load").on("click",function(){
+		location.href="http://localhost:8080/exam/move/boardUpdate?boardMenu="+boardMenu+"&boardNo="+boardNo
+	});
+	$("#del").on("click",function(){
+		var del = confirm("정말 삭제하시겠습니까?");
+		if(del){			
+			alert("삭제하였습니다");
+			location.href="http://localhost:8080/exam/board/delete?boardMenu="+boardMenu+"&page=0&boardNo="+boardNo;
+		}
+	});
+	$("#back").on("click",function(){
+		//location.href="http://localhost:8080/exam/board/selectList&boardMenu="+boardMenu+"&page=0";
+		location.href="http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page=0";
+	});
 });
 </script>
 </head>
@@ -79,7 +86,13 @@ $(function(){
                    </li>
                    <li id="menu_btn5" class='active has-sub'><span>내근처영화관</span></li>
                    <li id="menu_btn6" class='active has-sub'><span>Q&A</span></li>
-                   <li id="menu_btn7" class='active has-sub'><span>Login</span></li>
+                   <c:if test="${member == null}">
+                   	<li id="menu_btn7" class='active has-sub'><span>Login</span></li>
+                   	<li id="menu_btn8" class='active has-sub'><span>SingUp</span></li>
+                   </c:if>
+                   <c:if test="${member != null}">
+                   	<li id="menu_btn9" class='active has-sub'><span>Logout</span></li>
+                   </c:if>                   
                 </ul>
                 </div>
                 <div id="reg" class="atag" href="#"><img id="img1" src="http://localhost:8080/exam/img/register%20icon.png"></div>
@@ -109,8 +122,9 @@ $(function(){
 				<h2 id="viewTitle"></h2>
 				<hr>
 				<p id="viewContents"></p>
-				<textarea id="edit" name="edit"></textarea>
-				<button type="button" id="load">수정</button>
+				<div id="textview" style="display: block;">
+				</div>
+				<button type="button" id="load">수정</button><button type="button" id="del">삭제</button><button type="button" id="back">돌아가기</button>
 			</section>        	
         </div>
         <div id="div5">

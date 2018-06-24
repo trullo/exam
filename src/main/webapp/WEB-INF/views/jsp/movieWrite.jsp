@@ -13,87 +13,29 @@
 <script src="http://localhost:8080/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
 <script src="http://localhost:8080/exam/js/ms.js"></script>
 <script>
-$(function(){
-	var localhost = "http://localhost:8080/";
-	var insert = "http://localhost:8080/exam/user/insert";
-	var checkId = "http://localhost:8080/exam/user/checkId";
-	$("#div_main").css("display","block");
-	$("#div4_regser #form").on("submit",function(event){
-	      event.preventDefault();	      
-	});
-	
-	$("#div4_regser #id").focusout(function(){
-		if(idnullcheck()){
-			return false;
-		}
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			alert(d.result);
-		});
-	});
-	
-	$("#div4_regser form").on("submit",function(event){
-		event.preventDefault();
-		if(idnullcheck()){
-			return false;
-		}		
-		var queryString = $("#form").serialize();
-		console.log(queryString);
-		$.ajax({method:"post",url:checkId,data:{id:!$("#id").val()?"null":$("#id").val()}}).done(function(data){
-			var d = JSON.parse(data);// console.log(d.status);  0중복 1 비중복
-			if(d.status==0){
-				alert(d.result);
-				return false;
-			}
-		});
-		if(!pwcheck()){
-			alert("비밀번호가 다릅니다, 확인해주세요");
-			return false;
-		};
+	$(function(){
+		var localhost = "http://localhost:8080/";
+		$("#div_main").css("display","block");
 		
-		$.ajax({method:"post",url:insert,data:queryString}).done(function(data){
-			var d = JSON.parse(data);
-			console.log(d);
-			if(d.status == 0){
-				alert("회원가입성공!!");
-				location.href="/exam/move/index";
-			}
-			else if(d.status == 2){
-				alert("아이디를 확인해주세요!!");
-			}
-			else if(d.status ==3){
-				alert("비밀번호가 다릅니다!!")
-			}
-			else {
-				
-			}
+		$("#movieForm").on("submit",function(event){
+			event.preventDefault();
 			
-			
+			$.ajax({type:"post",
+				url:"http://localhost:8080/exam/movie/insert",
+				data:new FormData($(this)[0]),
+				cache: false,
+				contentType: false,
+				processData: false})
+			.done(function(data){
+				var d = JSON.parse(data);
+				console.log(d);
+			});     
 		});
-		
-	});	
-	function pwcheck(){
-		if($("#pw").val() == $("#pw2").val()){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	function idnullcheck(){
-		if($("#id").val() == ""){
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
 
-})
-          
+	})
 </script>
 </head>
-<body>  
+<body>
 	<div id="div_main">
         <div id="div1">
             <div id="home">
@@ -156,54 +98,53 @@ $(function(){
             </form>
             </div>
         </nav>
-        <div id="div4">
-		    <div id="div4_regser">
-	            <div>
-	                <h1>회원가입</h1>
-	            </div>
-		            <hr>
-		        <form id="form">
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label for="userid">아이디</label>
-		            <input id="id" name="id" type="text" autofocus required>
-		          </li>
-		          <li>
-		            <label for="pwd1">비밀번호</label>
-		            <input id="pw" name="pw" type="password" required>
-		          </li>
-		          <li>
-		            <label pwd="pwd2">비밀번호 확인</label>
-		            <input id="pw2" name="pw2" type="password" required>
-		          </li>  
-		          <li>
-		            <label pwd="level">회원 등급</label>
-		            <input id="level" name="level" type="text" readonly value="준회원">
-		          </li>
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		        <ol>
-		          <li>
-		            <label pwd="fullname">이름</label>
-		            <input id="name" name="name" type="text" placeholder="5자미만 공백없이" required>
-		          </li>
-		          <li>
-		            <label pwd="email">메일 주소</label>
-		            <input id="mail" name="mail" type="mail" placeholder="abcd@domain.com" required autocomplete="off">
-		          </li>
-		          <li>
-		            <label pwd="tel">연락처</label>
-		            <input id="phone" name="phone" type="tel" autocomplete="off" required>
-		          </li>  
-		        </ol>
-		        </fieldset>
-		        <fieldset>
-		          <button type="submit"> 회원가입 </button> <button id="backhome"> 뒤로가기 </button>
-		        </fieldset>
-		        </form>
-		    </div>    
+        <div id="div4" class="rel">
+        	<h1 style="text-align: cetner">영화 작성</h1>
+        	<form id="movieForm" enctype="multipart/form-data" method="post">
+		        <div id="div4_movieWrite">
+		        		<div>
+		        			<select id="movieMenu" name="movieMenu">
+		        				<option value="1">현재상영작</option>
+		        				<option value="2">개봉예정영화</option>
+		        			</select>	
+		        			<input id="title" name="title" type="text" placeholder="영화제목을 입력해주세요"> 
+		        		</div>
+		        		<div>
+		        			연령 : 
+		        			<input type="radio"  id="age" name="age" value="0">전체이용가
+		        			<input type="radio"  id="age" name="age" value="12">12세
+		        			<input type="radio"  id="age" name="age" value="15">15세
+		        			<input type="radio"  id="age" name="age" value="19">19세
+		        		</div>
+		        		<div>
+		        			개봉날 : <input id="release" name="release" type="text" placeholder="0000.00.00">
+		        		</div>
+		        		<div>
+		        			감독 : <input id="director" name="director" type="text" placeholder="감독이름">
+		        		</div>
+	        			<div>
+		        			장르 : <input id="zenre" name="zenre" type="text" placeholder="공포, 액션">
+		        		</div>
+	        			<div>
+		        			상영시간 : <input id="showtime" name="showtime" type="number" placeholder="100">
+		        		</div>
+		        		<div>
+		        			이미지 첨부 : <input id="file" name="file" type="file">
+		        		</div>				        		
+	        			<div>
+		        			줄거리 :
+		        		</div>	
+		        		<div>
+		        			<textarea id="summary" name="summary" rows="10" cols="100"></textarea>
+		        		</div>   
+		        		<div style="display: none;">
+		        			<input id="movieNo" name="movieNo" type="text" value="0"> 
+		        		</div>     
+	        			<div>        			
+	        				<input type="submit" value="작성">
+	        			</div>
+			    </div> 
+	   		</form>		    
         </div>
         <div id="div5">
             <img class="div5_img" src="http://localhost:8080/exam/img/twitter-logo.png">
