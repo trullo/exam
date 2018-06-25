@@ -6,12 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href=" http://localhost:8080/exam/css/team_project.css">
-<link rel="stylesheet" type="text/css" media="only screen and (min-width:769px) and (max-width: 1200px) " href=" http://localhost:8080/exam/css/tablet.css">
-<link rel="stylesheet" type="text/css" media="only screen and (max-width: 768px)" href=" http://localhost:8080/exam/css/mobile.css">
-<link rel="stylesheet" href=" http://localhost:8080/exam/css/menubar.css">
-<script src="http://localhost:8080/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
-<script src="http://localhost:8080/exam/js/ms.js"></script>
+<link rel="stylesheet" type="text/css" href=" /exam/css/team_project.css">
+<link rel="stylesheet" type="text/css" media="only screen and (min-width:769px) and (max-width: 1200px) " href=" /exam/css/tablet.css">
+<link rel="stylesheet" type="text/css" media="only screen and (max-width: 768px)" href=" /exam/css/mobile.css">
+<link rel="stylesheet" href=" /exam/css/menubar.css">
+<script src="/exam/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+<script src="/exam/js/ms.js"></script>
 <script>
 	$(function(){        
         /* 수동 슬라이드 쇼*/
@@ -58,22 +58,22 @@
 <body>
  
     <div id="div0">
-        <img id="img_div0" src="http://localhost:8080/exam/img/big-logo.png">
+        <img id="img_div0" src="/exam/img/big-logo.png">
         <button id="btn_div0">Visit Website</button>
     </div>
     <div id="div_main">
            <div id="div1">
                <div id="home">
-                   <img src="http://localhost:8080/exam/img/small-logo.png">
+                   <img src="/exam/img/small-logo.png">
                </div>
            </div>
            <div id="div1_1">
-               <img src="http://localhost:8080/exam/img/side-logo.png">
+               <img src="/exam/img/side-logo.png">
            </div>
 
         <nav id="nav_div2">
            <div id="div2">
-               <a id="atag2" href="#"><img id="menu1" src="http://localhost:8080/exam/img/menu%20icon.png"></a>           
+               <a id="atag2" href="#"><img id="menu1" src="/exam/img/menu%20icon.png"></a>           
                 <div id='cssmenu'>
                 <ul>
                    <li class='active has-sub'><span>영화</span>
@@ -103,8 +103,8 @@
                    </c:if>                   
                 </ul>
                 </div>
-                <div id="reg" class="atag" href="#"><img id="img1" src="http://localhost:8080/exam/img/register%20icon.png"></div>
-                <div id="login" class="atag" href="#"><img id="img2" src="http://localhost:8080/exam/img/login_icon.png"></div>
+                <div id="reg" class="atag" href="#"><img id="img1" src="/exam/img/register%20icon.png"></div>
+                <div id="login" class="atag" href="#"><img id="img2" src="/exam/img/login_icon.png"></div>
             </div>
             <nav id="navigation-menu">
                 <ul>
@@ -120,29 +120,29 @@
             <form>
                 <p>ID: &nbsp;&nbsp;<input id="nid" class="input_type" type="text" placeholder="아이디를 입력하세요."><img src=""></p>
                 <p>PW: <input id="npw" class="input_type" type="text" placeholder="비밀번호를 입력하세요." required></p>
-                <div><img id="backbutton" src="http://localhost:8080/exam/img/back.png"></div><div><img id="smallloginbutton" src="http://localhost:8080/exam/img/login.png"></div>
+                <div><img id="backbutton" src="/exam/img/back.png"></div><div><img id="smallloginbutton" src="/exam/img/login.png"></div>
             </form>
             </div>
         </nav>
         <div id="div4">
-                <img class="mySlides" src="http://localhost:8080/exam/img/7.jpg" style="width: 100%; display: block;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/2.jpg" style="width: 100%; display: none;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/3.jpg" style="width: 100%; display: none;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/4.jpg" style="width: 100%; display: none;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/5.jpg" style="width: 100%; display: none;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/6.jpg" style="width: 100%; display: none;">
-                <img class="mySlides" src="http://localhost:8080/exam/img/1.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/7.jpg" style="width: 100%; display: block;">
+                <img class="mySlides" src="/exam/img/2.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/3.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/4.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/5.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/6.jpg" style="width: 100%; display: none;">
+                <img class="mySlides" src="/exam/img/1.jpg" style="width: 100%; display: none;">
                 <div id="div4_1">
                    <div id="trailertitle">Venom Trailer</div>
                     <iframe src="https://www.youtube.com/embed/hyetTJz-0AY" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
         </div>
         <div id="div5">
-            <img class="div5_img" src="http://localhost:8080/exam/img/twitter-logo.png">
-            <img class="div5_img" src="http://localhost:8080/exam/img/facebook.png">
-            <img class="div5_img" src="http://localhost:8080/exam/img/instagram.png">
-            <img class="div5_img" src="http://localhost:8080/exam/img/play-store.png">
-            <img class="div5_img" src="http://localhost:8080/exam/img/app-store.png">
+            <img class="div5_img" src="/exam/img/twitter-logo.png">
+            <img class="div5_img" src="/exam/img/facebook.png">
+            <img class="div5_img" src="/exam/img/instagram.png">
+            <img class="div5_img" src="/exam/img/play-store.png">
+            <img class="div5_img" src="/exam/img/app-store.png">
             
             <div>Copyright 2018 by Team4. All rights reserved</div>
         </div>

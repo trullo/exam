@@ -82,8 +82,12 @@ public class MovieService implements MovieInterface {
         String filenm = file.getOriginalFilename();
         try {
             byte[] bytes = file.getBytes();
-            //String path = "D:/test/movie/" + param.get("movieNo") + "/";
-            String path = "D:/GDJ10/IDE/eclipse/workspace/exam/src/main/webapp/resources/team2/img/movie/" + param.get("movieNo") + "/";
+            //String path = "D:/GDJ10/IDE/eclipse/workspace/exam/src/main/webapp/resources/team2/img/movie/" + param.get("movieNo") + "/";
+//            String path = "/var/www/html/resources/" + param.get("movieNo") + "/";            
+//			String path = "D:/GDJ10/IDE/workspace/FileServer/src/main/webapp/resources/" + dir + "/";
+
+			String path = req.getSession().getServletContext().getRealPath("/") + "resources/" + param.get("movieNo") + "/";
+//			String dns = "http://gudi.iptime.org:10120/";         
             File dir = new File(path);
             if(!dir.exists()) {dir.mkdirs();}
             File f = new File(path+filenm);	//경로까지담은객체를 담아서

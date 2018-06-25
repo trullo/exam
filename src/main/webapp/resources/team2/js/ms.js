@@ -1,5 +1,5 @@
 $(function(){
-	var localhost = "http://localhost:8080/"; //경로들
+	var localhost = "/"; //경로들
 	var index = "exam/move/index";
 	var movie = "exam/move/movie";
 	var movie2 = "exam/move/movie2";
@@ -9,7 +9,7 @@ $(function(){
 	var write = "exam/move/boardWrite"
 	var map = "exam/move/map"
 	var reg = "exam/move/reg"
-	var login = "http://localhost:8080/exam/user/selectOne";
+	var login = "/exam/user/selectOne";
     $("#navigation-menu").hide();
     
     $("#menu1").click(function() {
