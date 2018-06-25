@@ -35,6 +35,15 @@ $(function(){
 		console.log(d);
 		$("#textview").html(d.result.content);
 		$("#textTitle").text(d.result.title);
+		
+		if("${member.userNo}" != d.result.userNo){
+			$("#load").css("display","none");
+			$("#del").css("display","none");
+		}else{
+			$("#load").css("display","inline-block");
+			$("#del").css("display","inline-block");			
+		}
+				
 	});
 	
 	$("#load").on("click",function(){

@@ -116,7 +116,12 @@ $(function(){
         }
     });
     
-    
+	function loginCheck(){
+		if("${member}" == null){
+			alert("로그인을 하셔야 평가가 가능합니다.");
+			return false;
+		}
+	}    
 });
 //get파라미터 가져오는 메소드
 function urlParameter (name) {

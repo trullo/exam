@@ -216,7 +216,7 @@ $(function(){
 		    }
 		})
 	
-		$("#poster_back a").on("click",function(){
+		$("#exit").on("click",function(){
 		    for(var i=0;i<=4;i++){
 		        $("#star_point div div").find("span").eq(i).html("☆");
 		    };                
@@ -260,8 +260,10 @@ $(function(){
 </head>
 <body>
    <article id="poster_back">
-        <a>X</a>
-        <input type="button" id="posterDel" value="Del">
+        <div id="exit">X</div>
+        <c:if test="${member.level eq '관리자'}">
+        	<input type="button" id="posterDel" value="Del">
+        </c:if>
         <div id="poster_body"> 
             <div id="poster_header">
                <div id="img">

@@ -19,7 +19,7 @@ $(function(){
 	var checkId = "/exam/user/checkId";
 	var write = "/exam/move/boardWrite";
 	var boardView = "/exam/move/boardView";
-	var search = localhost+"exam/board/searchList"
+	var search = localhost+"exam/board/searchList";
 	$("#div_main").css("display","block");
 	
 	var result = new Array();
@@ -30,10 +30,7 @@ $(function(){
 	var linkStarthead = parseInt(page/10);
 	var linkLast = linkStart>=linkLength?linkLength:linkLength==1?1:linkStart + 9; 				//1  + 9 10까지 11 + 9 20 까지 끝단이면 거기까지
 	
-	console.log("linkLength :" + linkLength);
-	console.log("linkStart :" + linkStart);
-	console.log("linkLast :" + linkLast);
-	var boardMenu = urlParameter("boardMenu");
+		var boardMenu = urlParameter("boardMenu");
 	console.log(boardMenu)
  	switch(boardMenu)  { 
 		case '1' : $("#div4Head").text("영화소통게시판"); break;
@@ -55,20 +52,24 @@ $(function(){
 		json.max="${info.max}";
 		result.push(json);
 	</c:forEach>
-		var number=0;
+	
+	var number=0;
 	for(var i = (linkStarthead*10+1);i<=linkLast;i++){
 		var html = "";
+
 		if( linkStarthead != 0 && i%10==1 ) {
 			number = i;
 			html += "<li><a href='/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-10)+"'><</a></li>";
 		}
-		html += "<li><a href='/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-1)+"'>"+i+"</a></li>";
+			html += "<li><a href='/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-1)+"'>"+i+"</a></li>";
 		if(i%10==0 && i!=0){
 			html += "<li><a href='/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i+1)+"'>></a></li>";
-		}				
+		}
 		$("#link ul").append(html);
+		
 	}
 	
+
 	result.forEach(function(row){
         var html = "";
         html += '<tr style="border-bottom:1px solid #CCC;">';
@@ -87,8 +88,28 @@ $(function(){
 	})
 	
 	$("#searchbtn").on("click",function(){
+		$("#div5").css('display','none');
 		var text = $("#text").val();
-		location.href=search+"?boardMenu="+boardMenu+"&page=0&text="+text;
+		$.ajax({method:"get",url:"/exam/board/searchList",data:{text:text,boardMenun:boardMenu}})
+		.done(function(data){
+			var j = JSON.parse(data);
+			console.log(j);
+			$("#dataTable").empty();
+			$("#link ul").empty();
+			for(var i=0;i<j.result.length;i++){
+		        var html = "";
+		        html += '<tr style="border-bottom:1px solid #CCC;">';
+		          html += '<td class="boardstyle mobiledisplaynone num">' + j.result[i].boardNo + '</td>';
+		          html += '<td class="board_btn" style="cursor:pointer;" class="boardstyle mobiletitle title" ><a href="'+j.result[i].boardView+'?boardMenu='+j.result[i].boardMenu+'&boardNo='+j.result[i].boardNo+'">' + j.result[i].title + '</a></td>';
+		          html += '<td class="boardstyle name" >' + j.result[i].id + '</td>';
+		          html += '<td class="boardstyle date" >' + j.result[i].regDate + '</td>';
+		          html += '<td class="boardstyle mobiledisplaynone count" >' + j.result[i].viewCount + '</td>';
+		          html += '<input type="hidden" name="num" value="'+j.result[i].boardNo+'"/>';
+		          html += '</tr>';
+		          $("#dataTable").append(html); 
+		          
+			}
+		});
 	});
 /*       data.forEach(function(row) {
          var html = "";

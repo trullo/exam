@@ -57,6 +57,13 @@ $(function(){
 		.done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
+			if(d.result==1){
+				alert("수정완료");
+				location.href=boardView+"?boardMenu="+boardMenu+"&boardNo="+boardNo;
+			}
+			else {
+				alert("수정실패");
+			}
 		});		
 	});
 	

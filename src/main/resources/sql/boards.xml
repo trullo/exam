@@ -13,10 +13,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from boards where boardNo = #{boardNo} and boardDelYn = 'N' limit 1;
 	</select>
 	<select id="searchList" parameterType="HashMap" resultType="HashMap">
-		select * from boards where title LIKE #{text} or content LIKE #{text} and boardMenu = #{boardMenu} and boarddelYn = 'N' order by boardNo desc limit #{number}, 10;
+		select * from boards where title LIKE +CONCAT('%',#{text},'%') or content LIKE +CONCAT('%',#{text},'%') and boardMenu = #{boardMenu} and boarddelYn = 'N' order by boardNo desc
 	</select>	
 	<select id="searchMax" parameterType="HashMap" resultType="HashMap">
-		select count(*) as max from boards where title LIKE #{text} and content LIKE #{text} and  boardMenu = #{boardMenu} and boarddelYn = 'N';
+		select count(*) as max from boards where title LIKE +CONCAT('%',#{text},'%') or content LIKE +CONCAT('%',#{text},'%') and  boardMenu = #{boardMenu} and boarddelYn = 'N';
 	</select>		
 	<insert id="insert">
 		insert into boards (boardMenu, title, content, userNo, id, regDate) values (#{boardMenu}, #{title}, #{content}, #{userNo}, #{id}, DATE_FORMAT(NOW(),'%Y%m%d')); 

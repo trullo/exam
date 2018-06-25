@@ -21,6 +21,7 @@
   position: relative;
   right: 20px;
   color: #ffffff;
+  height: 80px;
 }
 #cssmenu > ul li.hover,
 #cssmenu > ul li:hover {

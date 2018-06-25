@@ -40,6 +40,12 @@ public class BoardsService implements BoardsServiceInterface {
 			param.put("sqlType", "boards.selectList2");
 			mav.setViewName("jsp/board");			
 		}
+		else if("searchList".equals(param.get("sql").toString())) {
+			param.put("sql", "selectList");
+			param.put("sqlType", "boards.searchList");
+			param.put("result", di.call(param));
+			return HttpUtil.makeJsonView(param);
+		}
 		else if("insert".equals(param.get("sql").toString())){
 			System.out.println(param);
 			param.putAll((HashMap<String, Object>) session.getAttribute("member"));
