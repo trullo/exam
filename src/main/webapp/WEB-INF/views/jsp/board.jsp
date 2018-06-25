@@ -25,7 +25,7 @@ $(function(){
 	var result = new Array();
 	var page = "${page}";		//현재폐이지
 	var max = "${max.max}";		//게시판 최대글
-	var linkLength = parseInt(max/10 + 1);  //최대 폐이지수		
+	var linkLength = parseInt(max/10 + 1);  		
 	var linkStart = parseInt(page/10 +1);	
 	var linkStarthead = parseInt(page/10);
 	var linkLast = linkStart>=linkLength?linkLength:linkLength==1?1:linkStart + 9; 				//1  + 9 10까지 11 + 9 20 까지 끝단이면 거기까지
