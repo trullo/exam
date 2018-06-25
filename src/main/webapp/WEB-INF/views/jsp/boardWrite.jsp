@@ -50,6 +50,14 @@ $(function(){
 		.done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
+			if(d.status == 0){
+				alert("글 작성완료");
+				location.href=board;
+			}
+			else{
+				alert("글작성 실패");
+			}
+			
 		});		
 	});
 	$("#back").on("click",function(){

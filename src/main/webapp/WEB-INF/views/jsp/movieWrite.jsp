@@ -29,6 +29,13 @@
 			.done(function(data){
 				var d = JSON.parse(data);
 				console.log(d);
+				if(d.status == 1 && d.status2 == 1){
+					alert("영화게시판 작성완료");
+					location.href="/exam/move/index";
+				}
+				else{
+					alert("이상발생");
+				}
 			});     
 		});
 

@@ -40,6 +40,11 @@ public class MovieController {
 		return mvi.list();
 	}
 	
+	@RequestMapping("movie/list2")
+	public ModelAndView list2() {
+		return mvi.list2();
+	}	
+	
 	@RequestMapping("mark/insert")
 	public ModelAndView insert(HttpServletRequest req,HttpSession session) {
 		System.out.println("mark/insert");

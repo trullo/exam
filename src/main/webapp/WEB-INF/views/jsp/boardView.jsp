@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -126,7 +126,9 @@ $(function(){
 				<h1 id="textTitle"></h1>
 				<div id="textview" style="display: block;">
 				</div>
-				<button type="button" id="load">수정</button><button type="button" id="del">삭제</button><button type="button" id="back">돌아가기</button>
+
+				<button type="button" id="load">수정</button><button type="button" id="del">삭제</button>
+				<button type="button" id="back">돌아가기</button>
 			</section>        	
         </div>
         <div id="div5">

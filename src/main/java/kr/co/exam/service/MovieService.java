@@ -59,6 +59,22 @@ public class MovieService implements MovieInterface {
 		return HttpUtil.makeJsonView(result);
 	}	
 	
+	@Override
+	public ModelAndView list2() {
+		ModelAndView mav = new ModelAndView();
+		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("sql", "selectList");
+		param.put("sqlType", "movie.selectList2");
+		result.put("movie", di.call(param));
+		param.put("sqlType", "movie.fileList2");
+		result.put("file", di.call(param));
+				
+		mav.setViewName("jsp/movie");
+		mav.addObject("data", result);
+		return HttpUtil.makeJsonView(result);
+	}		
+	
 	
 	
 	public HashMap<String, Object> file(HttpServletRequest req,MultipartFile file,Map<String, Object> param) {

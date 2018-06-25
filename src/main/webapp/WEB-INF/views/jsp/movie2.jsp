@@ -16,24 +16,31 @@
 /* 영화게시판들 */
 $(function(){
 	var image = "http://localhost:8080/exam/img/moveimg/";
-	
+	var img = "http://localhost:8080/exam/img/movie/";
+	var list;
 	var a=0;
+	var d;
 	var parent = 0;
-
-    list = [{title:"라이크 크레이지",image:"new_movie1.jpg",realdate:" 2018.05.30",director:"드레이크 도리머스",genre:"드라마, 멜로, 로맨스",Showtime:"117",Contents:"사랑하고, 이별하고, 다시 돌아오다 영국 여자 '애나'와 미국 남자 '제이콥'은 LA에서 첫눈에 반한다. 서로에 대한 사랑을 쌓아가며 행복한 시간을 보내던 중, 애나의 학생 비자가 만료돼 영국으로 다시 돌아가야 하는 상황이 발생한다. 의도치 않게 장거리 연애를 시작한 둘은 점점 서로가 없는 삶에 익숙해지고 새로운 사람이 눈에 들어온다. 몇 개월 간의 갈등 끝에 애나는 중대한 결심을 하고 제이콥에게 전화를 건다",point:30,people:8,age:12},
-        {title:"미드나잇 선",image:"new_movie2.jpg",realdate:"2018.06.16",director:"스콧 스피어",genre:"드라마, 멜로, 로맨스",Showtime:"92",Contents:"사랑을 꿈꿨던 낮, 사랑이 이뤄진 밤 어두운 밤에도 네가 나의 태양이었어XP(색소성건피증)라는 희귀병으로 태양을 피해야만 하는 케이티. 오직 밤에만 외출이 허락된 그녀에게는 어머니가 남겨준 기타와 창문 너머로 10년째 짝사랑해온 ‘찰리’가 세상의 빛이다. 어느 날 작은 기차역에서 한밤의 버스킹을 하던 ‘케이티’의 앞에 ‘찰리’가 나타나고, 두 사람은 매일 밤마다 모두가 부러워하는 완벽한 데이트를 이어간다. 처음으로 함께 여행을 떠난 날, 꿈 같은 시간을 보내던 ‘케이티’는 그만 지켜야만 하는 규칙을 어기게 되고 결국 피할 수 없는 선택을 해야만 하는데… ",point:30,people:6,age:12},
-        {title:"메이플쏘프",image:"new_movie3.jpg",realdate:"2018.06.18",director:"펜튼 베일리, 랜디 바바토",genre:"다큐멘터리",Showtime:"109",Contents:"'거침없고 완벽하다!'이 시대 가장 뜨거웠던 논란의 중심에 선 포토그래퍼이자 뉴욕의 아이콘 로버트 메이플쏘프 누구보다 특별하고 화려했던 뉴욕에서의 기록",point:88,people:22,age:19},
-        {title:"스탠바이, 웬디",image:"new_movie4.jpg",realdate:"2018.05.30",director:"벤 르윈",genre:"드라마, 코미디",Showtime:"93",Contents:"댕댕이 ‘피트’도 지리는(?) FM직진소녀 ‘웬디’427페이지 시나리오를 외우는 능력자 매일매일 요일별로 깔맞춤 하는 패션리더 알바생들 깜짝 놀라게 만든 샌프란시스코 최고의 썸녀 근데 ‘웬디’가 나보다 ‘스타 트렉’을 더 좋아하는 거 같아 고민이애오 ‘스타 트렉’ 시나리오 작가가 꿈이라고 무작정 LA로 떠난대오 멍무룩 5월에는 ‘웬디’ 하고 싶은 거 다 해!",point:120,people:40,age:12},
-        {title:"세라비, 이것이 인생!",image:"new_movie5.jpg",realdate:"2018.05.30",director:"올리비에르 나카체, 에릭 토레다노",genre:"코미디",Showtime:"115",Contents:"17세기 고성에서의 의미 깊은 결혼식을 준비하는 웨딩 플래너 맥스 하.지.만 오늘따라 유달리 실수 연발에 손발 전혀 안 맞는 직원들로 인해 돌발 사고는 계속되고 예민하고 까다로운 클라이언트는 실시간 ‘지켜보고 있다’ 모드에 요구 사항은 점점 늘어만 간다! 과연 맥스는 엉망진창 팀원들과 함께 결혼식을 무사히 끝낼 수 있을까? 가장 아름답고 행복한 결혼식을 완성시키기 위한 맥스의 고군분투가 시작된다!",point:90,people:3,age:12},
-        {title:"홈",image:"new_movie6.jpg",realdate:"2018.05.30",director:"김종우",genre:"드라마, 가족",Showtime:"100",Contents:"어느 날 갑자기 하늘에서 뚝 떨어진 가족!열네 살 소년의 행복 만들기 프로젝트가 시작된다!동생 성호, 성호의 친아빠 원재, 그리고 원재의 딸 지영까지. 어느 날 갑자기 새로운 식구가 생긴 준호는 매일매일 행복 뿜뿜이다. 준호를 아들처럼 챙기는 원재와 친형제처럼 따르는 동생들 덕이다. “우리 이렇게 계속 같이 있으면 좋겠다”는 준호의 말에 당연하다는 듯이 “같이 있다 아이가”라며 웃는 동생들. 이제 막 새 가족 속으로 골인한 준호의 소원은 이뤄질 수 있을까?",point:80,people:20,age:12}];
+	var movieNo;
+	var point;
+	var people;
+	
+	$.ajax({method:'get',url:"/exam/movie/list2"})
+	.done(function(data){
+		d = JSON.parse(data);
+		list = d;
+		console.log(list);
+		creat_list(list);
+	});
 
 	/* 게시판만들기 */
-	var creat_list = function(){
-	    list.forEach(function(row){
+	var creat_list = function(d){
+		for(var i=0;i<d.file.length;i++){
 	        var html="";
 	        html+='<div class="moveview">';
-	        html+='<div style="background-image: url('+image+row.image+')">';
+	        html+='<div style="background-image: url('+img+d.movie[i].movieNo+'/'+d.file[i].fileName+')">';
 	        html+='<div class="evaluation">';
+	        html+='<input type="hidden" id="num" value="'+d.movie[i].movieNo+'">';
 	        html+='<div>';
 	        html+='<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>';
 	        html+='</div>';
@@ -42,118 +49,209 @@ $(function(){
 	        html+='</div>';
 	        html+='</div>';
 	        html+='</div>';
-	        switch(row.age){
-	            case 0 : html+='<div><div style="background-color: green;" class="age">'+row.age+'</div>'; break;
-	            case 12 : html+='<div><div style="background-color: skyblue;" class="age">'+row.age+'</div>'; break;
-	            case 15 : html+='<div><div style="background-color: rgb(230, 189, 17);" class="age">'+row.age+'</div>'; break;
-	            case 19 : html+='<div><div style="background-color: red;" class="age">'+row.age+'</div>'; break;
+	        switch(d.movie[i].age){
+	            case '0' : html+='<div><div style="background-color: green;" class="age">'+d.movie[i].age+'</div>'; break;
+	            case '12' : html+='<div><div style="background-color: skyblue;" class="age">'+d.movie[i].age+'</div>'; break;
+	            case '15' : html+='<div><div style="background-color: rgb(230, 189, 17);" class="age">'+d.movie[i].age+'</div>'; break;
+	            case '19' : html+='<div><div style="background-color: red;" class="age">'+d.movie[i].age+'</div>'; break;
 	        }
-	        html+='<div class="title"><p>'+row.title+'</p></div></div>';
+	        html+='<div class="title"><p>'+d.movie[i].title+'</p></div></div>';
 	        html+='<div><button class="move_info">상세정보</button></div>';
 	        html+='</div>';
 	        $("#div4 .div4_view").append(html);
-	    });
+	        console.log(i);
+		}
+		
+		/* 영화게시판 - 클릭에대한 액션들 */
+		$(".evaluation").on("mouseover",function(){
+		    parent = $(this).parent().parent().index();
+		    if(a==0){
+		    $(".evaluation p").html("평점을 입력해주세요");
+		    a++;
+		    };
+		});
+		var text;
+		var point;
+		$(".evaluation span").on({mouseover:function(){
+		    var index = $(this).index();
+		    for(var i=0;i<=index;i++){
+		        $(".moveview").eq(parent).find("div").find(".evaluation").find("span").eq(i).html("★");
+		    };
+		    
+		    switch(index){
+		        case 0 : $(".evaluation p").html("시간이아까워요"); 
+		        		 text = "시간이아까워요"; point = 1;break;
+		            case 1 : $(".evaluation p").html("기대하지말아요");
+		            	 text = "기대하지말아요"; point = 2; break;
+		            case 2 : $(".evaluation p").html("볼만하네요"); 
+		            	 text = "볼만하네요";point = 3;  break;
+		            case 3 : $(".evaluation p").html("기대만큼이네요");
+		            	 text = "기대만큼이네요"; point = 4; break;
+		            case 4 : $(".evaluation p").html("멋진영화였어요!!")
+		            	 text = "멋진영화였어요!!"; point = 5;
+		    }
+		},mousedown:function(){
+			movieNo = $(this).parent().parent().find("#num").val();
+			var bool = confirm("정말 "+text+"\n라고 평가하시겠습니까?")
+			console.log(movieNo);
+			
+ 			if(bool){
+				$.ajax({method:"post",url:"/exam/mark/insert",data:{movieNo:movieNo,mark:point}})
+				.done(function(data){
+					var f = JSON.parse(data);
+					console.log(f);
+					if(f.status==0){
+						alert("평가완료");
+					}
+					else{
+						alert(f.result.mark+"점으로 이미 투표하셨습니다.");
+					}
+				});
+				
+			} 
+
+		},mouseout:function(){
+		    for(var j=0;j<=$(".moveview").length-1;j++){
+		        for(var i=0;i<=4;i++){
+		            $(".moveview").eq(j).find("div").find(".evaluation").find("span").eq(i).html("☆");
+		        };
+		    }
+
+		    $(".evaluation p").html("평점을 입력해주세요");
+		}})		
+		/* 영화 상세정보 버튼 */
+		$(".move_info").on("click",function(){
+		    var index = $(this).parent().parent().index();
+		    movieNo = $(this).parent().parent().find(".evaluation").find("#num").val();
+		    console.log(movieNo);
+		    //alert(list[index].title);         
+
+		    $.ajax({method:"get",url:"/exam/mark/list",data:{movieNo:movieNo}})
+		    .done(function(data){
+		    	console.log(data);
+		    	var mp = JSON.parse(data).result;
+ 			    	 for(var i=0;i<=(parseInt(mp.point/mp.people))-1;i++){
+					        $("#star_point div div").find("span").eq(i).html("★");
+				     };
+				     
+				     $("#star_point people").text(mp.people+"명");
+				     $("#star_point point").text(mp.point/mp.people); 
+		    });		    
+		    
+		    
+		    $("#age_title .age").text(list.movie[index].age);
+		    switch(list.movie[index].age){
+		            case 0 : $("#age_title .age").css("background-color","green");
+		            break;
+		            case 12 : $("#age_title .age").css("background-color","skyblue");
+		            break;
+		            case 15 : $("#age_title .age").css("background-color","rgb(230, 189, 17)");
+		            break;
+		            case 19 : $("#age_title .age").css("background-color","red");
+		            break;
+		    }                
+		    $("#poster_header #img").css("background-image","url("+img+list.movie[index].movieNo+'/'+list.file[index].fileName+")");
+		    $("#age_title .title").text(list.movie[index].title);
+		    $("realdate").text(list.movie[index].release);
+		    $("director").text(list.movie[index].director);
+		    $("genre").text(list.movie[index].zenre);     
+		    $("showtime").text(list.movie[index].showtime+"분");
+		    $("#poster_contents p").text(list.movie[index].summary);
+	
+
+		    
+/* 		    for(var i=0;i<=(parseInt(list[index].point/list[index].people))-1;i++){
+		        $("#star_point div div").find("span").eq(i).html("★");
+		    };
+ */	
+ 
+/* 		    $("#star_point people").text(list[index].people+"명");
+		    $("#star_point point").text(list[index].point/list[index].people); */
+		    $("#poster_back").css("display","block");  
+	
+		});            
+	
+		/* 영화 상세보기 별주기 */
+		$("#poster_back #poster_body #poster_header #header_in #star span").on({mouseover:function(){
+		    var index = $(this).index();
+		    for(var i=0;i<=index;i++){
+		        $("#poster_back #poster_body #poster_header #header_in #star").find("span").eq(i).html("★");
+		    };              
+		    switch(index){
+	        case 0 : $(".evaluation p").html("시간이아까워요"); 
+	        		 text = "시간이아까워요"; point = 1;break;
+	            case 1 : $(".evaluation p").html("기대하지말아요");
+	            	 text = "기대하지말아요"; point = 2; break;
+	            case 2 : $(".evaluation p").html("볼만하네요"); 
+	            	 text = "볼만하네요";point = 3;  break;
+	            case 3 : $(".evaluation p").html("기대만큼이네요");
+	            	 text = "기대만큼이네요"; point = 4; break;
+	            case 4 : $(".evaluation p").html("멋진영화였어요!!")
+	            	 text = "멋진영화였어요!!"; point = 5;
+	    }
+		    },mousedown:function(){
+				var bool = confirm("정말 "+text+"\n라고 평가하시겠습니까?")
+				console.log(movieNo);
+				
+	 			if(bool){
+					$.ajax({method:"post",url:"/exam/mark/insert",data:{movieNo:movieNo,mark:point}})
+					.done(function(data){
+						var f = JSON.parse(data);
+						console.log(f);
+						if(f.status==0){
+							alert("평가완료");
+						}
+						else{
+							alert(f.result.mark+"점으로 이미 투표하셨습니다.");
+						}
+					});
+					
+				} 
+
+			},mouseout:function(){
+		        for(var i=0;i<=4;i++){
+		            $("#poster_back #poster_body #poster_header #header_in #star").find("span").eq(i).html("☆");
+		        };   
+		        $("#poster_back #poster_body #poster_header #header_in p").html("평점을 입력해주세요");
+		    }
+		})
+	
+		$("#poster_back a").on("click",function(){
+		    for(var i=0;i<=4;i++){
+		        $("#star_point div div").find("span").eq(i).html("☆");
+		    };                
+		    $("#poster_back").css("display","none")
+		})
+		$("#poster_body").on("click",function(){
+
+		})
 	}
-	creat_list();
+	//creat_list();
+
+	$("#posterDel").on("click",function(){
+		var bdp = confirm("정말 삭제하시겠습니까?");
+		if(bdp){
+			$.ajax({method:"post",url:"/exam/mark/del",data:{movieNo:movieNo}})
+			.done(function(data){
+				var s = JSON.parse(data);
+				console.log(s);
+				if(s.result == 1){
+					alert("삭제성공");
+				}
+				else{
+					alert("삭제하는 도중에 문제가 생겼습니다.")
+				}
+			})
+		}
+	})
 
 
-	/* 영화게시판 - 클릭에대한 액션들 */
-	$(".evaluation").on("mouseover",function(){
-	    parent = $(this).parent().parent().index();
-	    if(a==0){
-	    $(".evaluation p").html("평점을 입력해주세요");
-	    a++;
-	    };
+
+
+	
+	$("#div4_foot #btn").on("click",function(){
+		location.href="movieWrite";
 	});
-
-	$(".evaluation span").on({mouseover:function(){
-	    var index = $(this).index();
-	    for(var i=0;i<=index;i++){
-	        $(".moveview").eq(parent).find("div").find(".evaluation").find("span").eq(i).html("★");
-	    };
-	    switch(index){
-	        case 0 : $(".evaluation p").html("시간이아까워요"); break;
-	            case 1 : $(".evaluation p").html("기대하지말아요"); break;
-	            case 2 : $(".evaluation p").html("볼만하네요"); break;
-	            case 3 : $(".evaluation p").html("기대만큼이네요"); break;
-	            case 4 : $(".evaluation p").html("멋진영화였어요!!");
-	    }
-	},click:function(){
-
-
-	},mouseout:function(){
-	    for(var j=0;j<=$(".moveview").length-1;j++){
-	        for(var i=0;i<=4;i++){
-	            $(".moveview").eq(j).find("div").find(".evaluation").find("span").eq(i).html("☆");
-	        };
-	    }
-
-	    $(".evaluation p").html("평점을 입력해주세요");
-	}})
-
-	/* 영화 상세정보 버튼 */
-	$(".move_info").on("click",function(){
-	    var index = $(this).parent().parent().index();
-	    //alert(list[index].title);         
-
-	    $("#age_title .age").text(list[index].age);
-	    switch(list[index].age){
-	            case 0 : $("#age_title .age").css("background-color","green");
-	            break;
-	            case 12 : $("#age_title .age").css("background-color","skyblue");
-	            break;
-	            case 15 : $("#age_title .age").css("background-color","rgb(230, 189, 17)");
-	            break;
-	            case 19 : $("#age_title .age").css("background-color","red");
-	            break;
-	    }                
-	    $("#poster_header #img").css("background-image","url("+image+list[index].image+")");
-	    $("#age_title .title").text(list[index].title);
-	    $("realdate").text(list[index].realdate);
-	    $("director").text(list[index].director);
-	    $("genre").text(list[index].genre);     
-	    $("showtime").text(list[index].Showtime+"분");
-	    $("#poster_contents p").text(list[index].Contents);
-
-	    for(var i=0;i<=(parseInt(list[index].point/list[index].people))-1;i++){
-	        $("#star_point div div").find("span").eq(i).html("★");
-	    };
-
-	    $("#star_point people").text(list[index].people+"명");
-	    $("#star_point point").text(list[index].point/list[index].people);
-	    $("#poster_back").css("display","block");  
-
-	});            
-
-	/* 영화 상세보기 별주기 */
-	$("#poster_back #poster_body #poster_header #header_in #star span").on({mouseover:function(){
-	    var index = $(this).index();
-	    for(var i=0;i<=index;i++){
-	        $("#poster_back #poster_body #poster_header #header_in #star").find("span").eq(i).html("★");
-	    };              
-	    switch(index){
-	        case 0 : $("#poster_back #poster_body #poster_header #header_in p").html("시간이아까워요"); break;
-	            case 1 : $("#poster_back #poster_body #poster_header #header_in p").html("기대하지말아요"); break;
-	            case 2 : $("#poster_back #poster_body #poster_header #header_in p").html("볼만하네요"); break;
-	            case 3 : $("#poster_back #poster_body #poster_header #header_in p").html("기대만큼이네요"); break;
-	            case 4 : $("#poster_back #poster_body #poster_header #header_in p").html("멋진영화였어요!!");
-	        }
-	    },click:function(){
-
-	    },mouseout:function(){
-	        for(var i=0;i<=4;i++){
-	            $("#poster_back #poster_body #poster_header #header_in #star").find("span").eq(i).html("☆");
-	        };   
-	        $("#poster_back #poster_body #poster_header #header_in p").html("평점을 입력해주세요");
-	    }
-	})
-
-	$("#poster_back").on("click",function(){
-	    for(var i=0;i<=4;i++){
-	        $("#star_point div div").find("span").eq(i).html("☆");
-	    };                
-	    $("#poster_back").css("display","none")
-	})
 	
 	$("#div_main").css("display","block");
 })
@@ -163,6 +261,7 @@ $(function(){
 <body>
    <article id="poster_back">
         <a>X</a>
+        <input type="button" id="posterDel" value="Del">
         <div id="poster_body"> 
             <div id="poster_header">
                <div id="img">
@@ -173,6 +272,7 @@ $(function(){
                        <div class="title"></div>
                    </div>
                    <div id="star_point">
+                   		<input type="hidden" id="num">
                         <div>
                             <div><span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span></div>
                             <people>10명 참여</people>
@@ -270,7 +370,7 @@ $(function(){
             </div>
         </nav>
         <div id="div4">
-		    <div id="div4_index">
+		    <div class="div4_index" id="div4_movie">
 		            <div>
 		                <h1>개봉예정영화</h1>
 		            </div>
@@ -278,6 +378,11 @@ $(function(){
 		            <div class="div4_view">
 		  
 		            </div>           
+		            <div id="div4_foot">
+			            <c:if test="${member.level eq '관리자'}">
+			            	<button id="btn">작성</button>
+			            </c:if>
+		            </div>
 		    </div>
         </div>
         <div id="div5">

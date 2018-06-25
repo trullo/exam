@@ -10,8 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from movie where movieDelYn = 'N' and movieMenu = 2 order by movieNo desc limit 10;
 	</select>	
 	<select id="fileList" parameterType="HashMap" resultType="HashMap">
-		select * from file where fileDelYn = 'N' order by fileNo desc limit 10;
-	</select>		
+		select * from file where fileDelYn = 'N' and movieMenu = 1 order by fileNo desc limit 10;
+	</select>
+	<select id="fileList2" parameterType="HashMap" resultType="HashMap">
+		select * from file where fileDelYn = 'N' and movieMenu = 2 order by fileNo desc limit 10;
+	</select>					
 	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
 		select movieNo from movie where title = #{title} and movieDelYn = 'N' order by movieNo desc limit 1;
 	</select>		
@@ -19,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into movie (movieMenu, age, title, `release`, director, zenre, showtime, summary) values (#{movieMenu},#{age},#{title},#{release},#{director},#{zenre},#{showtime},#{summary}); 
 	</insert>
 	<insert id="finsert">
-		insert into file (movieNo, fileName, fileUrl, regDate) values (#{movieNo},#{fileName},#{fileUrl},DATE_FORMAT(NOW(),'%Y%m%d'));
+		insert into file (movieNo, fileName, fileUrl, regDate,movieMenu) values (#{movieNo},#{fileName},#{fileUrl},DATE_FORMAT(NOW(),'%Y%m%d'),#{movieMenu});
 	</insert>
 	<insert id="markInsert" parameterType="HashMap">
 		insert into mark (userNo, movieNo, mark) values (#{userNo},#{movieNo},#{mark});
