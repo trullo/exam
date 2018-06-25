@@ -15,4 +15,5 @@ public interface MovieInterface {
 	public HashMap<String, Object> file(HttpServletRequest req,MultipartFile file,Map<String, Object> param);
 	public ModelAndView markinsert(Map<String, Object> param);
 	public ModelAndView marklist(HttpServletRequest req);
+	public ModelAndView del(HttpServletRequest req);
 }

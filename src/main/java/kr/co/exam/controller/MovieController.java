@@ -51,4 +51,8 @@ public class MovieController {
 	public ModelAndView marklist(HttpServletRequest req) {
 		return mvi.marklist(req);
 	}
+	@RequestMapping("mark/del")
+	public ModelAndView del(HttpServletRequest req) {
+		return mvi.del(req);
+	}	
 }

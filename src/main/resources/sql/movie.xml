@@ -4,13 +4,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie">
 	<select id="selectList" parameterType="HashMap" resultType="HashMap">
-		select * from movie where movieMenu = 1 order by movieNo desc limit 10;
+		select * from movie where movieDelYn = 'N' and movieMenu = 1 order by movieNo desc limit 10;
 	</select>
 	<select id="selectList2" parameterType="HashMap" resultType="HashMap">
-		select * from movie where movieMenu = 2 order by movieNo desc limit 10;
+		select * from movie where movieDelYn = 'N' and movieMenu = 2 order by movieNo desc limit 10;
 	</select>	
 	<select id="fileList" parameterType="HashMap" resultType="HashMap">
-		select * from file order by fileNo desc limit 10;
+		select * from file where fileDelYn = 'N' order by fileNo desc limit 10;
 	</select>		
 	<select id="selectOne" parameterType="HashMap" resultType="HashMap">
 		select movieNo from movie where title = #{title} and movieDelYn = 'N' order by movieNo desc limit 1;
@@ -27,8 +27,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="markselect" parameterType="HashMap" resultType="HashMap" >
 		Select * from mark where userNo = #{userNo} and movieNo = #{movieNo};
 	</select>	
-	<select id="marklist" parameterType="HashMap" resultType="HashMap" >
+	<select id="marklist" parameterType="HashMap" resultType="HashMap">
 		select count(*) as people, sum(mark) as point from mark where movieNo = #{movieNo};
 	</select>	
-		
+	<update id="mdel" parameterType="HashMap">
+		update movie set movieDelYn = 'Y' where movieNo = #{movieNo};
+	</update>
+	<update id="fdel" parameterType="HashMap">
+		update file set fileDelYn = 'Y' where movieNo = #{movieNo};
+	</update>		
 </mapper>

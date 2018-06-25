@@ -15,8 +15,10 @@
 <script>
 $(function(){
 	var localhost = "http://localhost:8080/";
-	var boardInsert = localhost+"exam/board/insert";
+	var boardInsert = localhost+"exam/board/update";
 	var selectOne = localhost+"exam/board/selectOne";
+	var selectList = localhost+"exam/board/selectList";
+	var boardView = localhost+"exam/move/boardView";
 	$("#div_main").css("display","block");
 	
 	var boardNo = urlParameter('boardNo');
@@ -51,11 +53,15 @@ $(function(){
 		var content = CKEDITOR.instances['edit'].getData();
 		console.log("save click!!"+$("#edit").val());
 		/* $.ajax({method:"post",url:boardInsert,data:{"title":$("#title").val(),"content":CKEDITOR.instances['edit'].getData(),"boardMenu":$("#boardMenu").val()}}) */
-		$.ajax({method:"post",url:boardInsert,data:{"title":title,"content":content,"boardMenu":$("#boardMenu").val()}})
+		$.ajax({method:"post",url:boardInsert,data:{'boardNo':boardNo,"title":title,"content":content,"boardMenu":$("#boardMenu").val()}})
 		.done(function(data){
 			var d = JSON.parse(data);
 			console.log(d);
 		});		
+	});
+	
+	$("#back").on("click",function(){
+		location.href=boardView+"?boardMenu="+boardMenu+"&boardNo="+boardNo;
 	});
 	
 	
@@ -140,7 +146,7 @@ $(function(){
 					</div>
 					<hr>
 					<textarea id="edit" name="edit"></textarea>
-					<button type="button" id="save">글쓰기</button>
+					<button type="button" id="save">수정</button>
 					<button type="button" id="back">돌아가기</button>					
 				</section>			
 		    </div> 

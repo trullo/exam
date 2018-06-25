@@ -25,9 +25,10 @@ $(function(){
 	var result = new Array();
 	var page = "${page}";		//현재폐이지
 	var max = "${max.max}";		//게시판 최대글
-	var linkLength = parseInt(max/10 + 1);		
-	var linkStart = parseInt(page/10 +1);		
-	var linkLast = linkStart!=linkLength?linkLength:linkLength==1?1:linkStart + 9; 				//1  + 9 10까지 11 + 9 20 까지 끝단이면 거기까지
+	var linkLength = parseInt(max/10 + 1);  //최대 폐이지수		
+	var linkStart = parseInt(page/10 +1);	//
+	var linkStarthead = parseInt(page/10);
+	var linkLast = linkStart>=linkLength?linkLength:linkLength==1?1:linkStart + 9; 				//1  + 9 10까지 11 + 9 20 까지 끝단이면 거기까지
 	
 	console.log("linkLength :" + linkLength);
 	console.log("linkStart :" + linkStart);
@@ -54,15 +55,16 @@ $(function(){
 		json.max="${info.max}";
 		result.push(json);
 	</c:forEach>
-		
-	for(var i = linkStart;i<=linkLast;i++){
+		var number=0;
+	for(var i = (linkStarthead*10+1);i<=linkLast;i++){
 		var html = "";
-		if(i==linkStart && parseInt(page/10) > 0) {
-			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(((page/10)-1)*10)+"'><</a></li>";
+		if( linkStarthead != 0 && i%10==1 ) {
+			number = i;
+			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-10)+"'><</a></li>";
 		}
 		html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i-1)+"'>"+i+"</a></li>";
-		if(i==linkLength && parseInt(linkStart) < (linkLength/10)){
-			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(((page/10)+1)*10)+"'>></a></li>";
+		if(i%10==0 && i!=0){
+			html += "<li><a href='http://localhost:8080/exam/board/selectList?boardMenu="+boardMenu+"&page="+(i+1)+"'>></a></li>";
 		}				
 		$("#link ul").append(html);
 	}
@@ -206,7 +208,7 @@ $(function(){
 			        	</ul>
 			        </div>
 			        <div id="btn_1">
-			        	<c:if test="${member} !	= null">
+			        	<c:if test="${member != null}">
 			            <button id="writebtn"></button>
 			            </c:if>
 			        </div>

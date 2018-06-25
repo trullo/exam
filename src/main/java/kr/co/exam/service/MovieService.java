@@ -67,7 +67,7 @@ public class MovieService implements MovieInterface {
         try {
             byte[] bytes = file.getBytes();
             //String path = "D:/test/movie/" + param.get("movieNo") + "/";
-            String path = "D:/workspace/exam/src/main/webapp/resources/team2/img/movie/" + param.get("movieNo") + "/";
+            String path = "D:/GDJ10/IDE/eclipse/workspace/exam/src/main/webapp/resources/team2/img/movie/" + param.get("movieNo") + "/";
             File dir = new File(path);
             if(!dir.exists()) {dir.mkdirs();}
             File f = new File(path+filenm);	//경로까지담은객체를 담아서
@@ -108,7 +108,21 @@ public class MovieService implements MovieInterface {
 		param.put("sql", "selectOne");
 		param.put("sqlType", "movie.marklist");
 		param.put("result", di.call(param));
+
 		System.out.println(param);
 		return HttpUtil.makeJsonView(param);
 	}
+	
+	public ModelAndView del(HttpServletRequest req) {
+		Map<String, Object> param = HttpUtil.getParamMap(req);
+		param.put("sql", "update");
+		param.put("sqlType", "movie.mdel");
+		param.put("result", di.call(param));
+		param.put("sqlType", "movie.fdel");
+		param.put("result2", di.call(param));		
+		
+
+		System.out.println(param);
+		return HttpUtil.makeJsonView(param);
+	}	
 }

@@ -16,9 +16,11 @@
 $(function(){
 	var localhost = "http://localhost:8080/";
 	var boardInsert = localhost+"exam/board/insert";
+	
 	$("#div_main").css("display","block");
 	
 	var boardMenu = urlParameter('boardMenu');
+	var board = "/exam/board/selectList?boardMenu="+boardMenu+"&page=0";
 
 	$("#boardMenu option").eq(boardMenu-1).attr("selected","selected");
 	
@@ -49,6 +51,9 @@ $(function(){
 			var d = JSON.parse(data);
 			console.log(d);
 		});		
+	});
+	$("#back").on("click",function(){
+		location.href=board;
 	});
 	
 	

@@ -19,6 +19,7 @@ $(function(){
 	var img = "http://localhost:8080/exam/img/movie/";
 	var list;
 	var a=0;
+	var d;
 	var parent = 0;
 	var movieNo;
 	var point;
@@ -26,7 +27,7 @@ $(function(){
 	
 	$.ajax({method:'get',url:"/exam/movie/list"})
 	.done(function(data){
-		var d = JSON.parse(data);
+		d = JSON.parse(data);
 		list = d;
 		console.log(list);
 		creat_list(list);
@@ -34,7 +35,7 @@ $(function(){
 
 	/* 게시판만들기 */
 	var creat_list = function(d){
-		for(var i=0;i<10;i++){
+		for(var i=0;i<d.file.length;i++){
 	        var html="";
 	        html+='<div class="moveview">';
 	        html+='<div style="background-image: url('+img+d.movie[i].movieNo+'/'+d.file[i].fileName+')">';
@@ -127,20 +128,14 @@ $(function(){
 
 		    $.ajax({method:"get",url:"/exam/mark/list",data:{movieNo:movieNo}})
 		    .done(function(data){
-		    	var mp = JSON.parse(data);
-		    	console.log("mark/list : " + mp);
-		    	if(mp == null){     
-			     $("#star_point people").text(mp.people+"0명");
-			     $("#star_point point").text(0);
-		    	}
-		    	else{
-			    	 for(var i=0;i<=(parseInt(mp.point/mp.people))-1;i++){
+		    	console.log(data);
+		    	var mp = JSON.parse(data).result;
+ 			    	 for(var i=0;i<=(parseInt(mp.point/mp.people))-1;i++){
 					        $("#star_point div div").find("span").eq(i).html("★");
 				     };
 				     
 				     $("#star_point people").text(mp.people+"명");
-				     $("#star_point point").text(mp.point/mp.people);
-		    	}
+				     $("#star_point point").text(mp.point/mp.people); 
 		    });		    
 		    
 		    
@@ -233,7 +228,22 @@ $(function(){
 	}
 	//creat_list();
 
-
+	$("#posterDel").on("click",function(){
+		var bdp = confirm("정말 삭제하시겠습니까?");
+		if(bdp){
+			$.ajax({method:"post",url:"/exam/mark/del",data:{movieNo:movieNo}})
+			.done(function(data){
+				var s = JSON.parse(data);
+				console.log(s);
+				if(s.result == 1){
+					alert("삭제성공");
+				}
+				else{
+					alert("삭제하는 도중에 문제가 생겼습니다.")
+				}
+			})
+		}
+	})
 
 
 
@@ -251,6 +261,7 @@ $(function(){
 <body>
    <article id="poster_back">
         <a>X</a>
+        <input type="button" id="posterDel" value="Del">
         <div id="poster_body"> 
             <div id="poster_header">
                <div id="img">

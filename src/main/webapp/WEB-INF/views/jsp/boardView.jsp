@@ -34,6 +34,7 @@ $(function(){
 		var d = JSON.parse(data);
 		console.log(d);
 		$("#textview").html(d.result.content);
+		$("#textTitle").text(d.result.title);
 	});
 	
 	$("#load").on("click",function(){
@@ -122,6 +123,7 @@ $(function(){
 				<h2 id="viewTitle"></h2>
 				<hr>
 				<p id="viewContents"></p>
+				<h1 id="textTitle"></h1>
 				<div id="textview" style="display: block;">
 				</div>
 				<button type="button" id="load">수정</button><button type="button" id="del">삭제</button><button type="button" id="back">돌아가기</button>
